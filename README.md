@@ -1,3 +1,6 @@
+# Expense-Tracker
+Expense tracker is a lightweight, responsive personal finance application built with React to help users monitor their income, log daily expenses, and visualize spending habits in real-time.
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
