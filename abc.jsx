@@ -130,7 +130,7 @@ function App() {
                 onChange={(e) => setType(e.target.value)}
               />
               Income
-            </label>
+            </label>   
 
           </div>
 
@@ -177,7 +177,7 @@ function App() {
       {/* Transaction List */}
       <div className="transaction-list">
 
-        {filteredTransactions.map((transaction) => (
+        {filteredTransactions.map((transaction) => {
 
           <div
             className={`transaction ${
@@ -196,7 +196,7 @@ function App() {
 
           </div>
 
-        ))}
+        })}
 
       </div>
 
