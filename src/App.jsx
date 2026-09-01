@@ -1,21 +1,20 @@
-import { useState } from "react";
-// import './App.css'
+import { useState,useEffect} from "react";
+import './App.css'
 
 function App() {
-  const [transactions, settransactions] = useState([
-    {
-      id: 1,
-      text: "salary",
-      amount: 10000,
-      type: "income",
-    },
-    {
-      id: 2,
-      text: "travel",
-      amount: 5000,
-      type: "expense",
-    },
-  ]);
+  const [transactions, settransactions] = useState(()=>{
+    let savedData=localStorage.getItem("Transactions")
+
+    return savedData? JSON.parse(savedData):[]
+    
+    });
+
+  useEffect(() => {
+    localStorage.setItem("Transactions",JSON.stringify(transactions))
+  
+   
+  }, [transactions])
+  
 
   const [text, settext] = useState("");
   const [amount, setamount] = useState("");
@@ -24,20 +23,20 @@ function App() {
   const [search, setsearch] = useState("");
 
   const income = transactions
-    .filter((t) => {
-      t.type === "income";
-    })
-    .reduce((acc, t) => {
-      (acc + t.amount, 0);
-    });
+    .filter((t) => 
+      t.type === "income"
+    )
+    .reduce((acc, t) => 
+      acc + t.amount, 0
+    );
 
   const expense = transactions
-    .filter((t) => {
-      t.type == "expense";
-    })
-    .reduce((acc, t) => {
-      (acc + t.amount, 0);
-    });
+    .filter((t) => 
+      t.type === "expense"
+    )
+    .reduce((acc, t) => 
+      acc + t.amount, 0
+    );
 
   const balance = income - expense;
 
@@ -57,15 +56,16 @@ function App() {
     };
 
     settransactions([...transactions, newTransaction]);
+
     settext("");
     setamount("");
     settype("expense");
     setshowform(false);
   };
 
-  const filteredtransactions = transactions.filter((t) => {
-    t.text.toLowerCase().includes(search.toLowerCase());
-  });
+  const filteredtransactions = transactions.filter((t) => 
+    t.text.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <>
@@ -76,7 +76,7 @@ function App() {
         {/* Balance Section */}
         <div className="balance-section">
           <h2>
-            Balance: <span>`${balance}`</span>
+            Balance: <span>${balance}</span>
           </h2>
 
           <button className="add-btn" onClick={() => setshowform(!showform)}>
@@ -90,7 +90,7 @@ function App() {
             <input
               type="text"
               placeholder="Enter Transaction type"
-              value={type}
+              value={text}
               onChange={(e) => settext(e.target.value)}
             />
 
@@ -102,6 +102,18 @@ function App() {
             />
 
             <div className="radio-btn">
+            
+            <label>
+                <input
+                  type="radio"
+                  value="expense"
+                  checked={type === "expense"}
+                  onChange={(e) => settype(e.target.value)}
+                />
+                Expense
+              </label>
+
+
               <label>
                 <input
                   type="radio"
@@ -112,15 +124,7 @@ function App() {
                 Income
               </label>
 
-              <label>
-                <input
-                  type="radio"
-                  value="expense"
-                  checked={type === "expense"}
-                  onChange={(e) => settype(e.target.value)}
-                />
-                Expense
-              </label>
+              
 
               {/* Submit button */}
 
@@ -137,7 +141,7 @@ function App() {
             <h2 className="expense">${expense}</h2>
           </div>
 
-          <div className="income">
+          <div className="summary-box">
             <p>Income</p>
             <h2 className="income">${income}</h2>
           </div>
@@ -157,15 +161,15 @@ function App() {
         {/* Transaction list */}
 
         <div className="transaction-list">
-          {filteredtransactions.map((transaction) => {
+          {filteredtransactions.map((transaction) => (
             <div
-              className={`transaction ${transaction.type === income ? "transaction-income" : "transaction-expense"}`}
+              className={`transaction ${transaction.type === "income" ? "transaction-income" : "transaction-expense"}`}
               key={transaction.id}
             >
-              <span>{transaction.text}</span>
+              <span>{transaction.text + ":"}</span>
               <span>{transaction.amount}</span>
-            </div>;
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </>
