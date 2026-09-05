@@ -1,42 +1,31 @@
-import { useState,useEffect} from "react";
-import './App.css'
+import { useState, useEffect } from "react";
+import "./App.css";
 
 function App() {
-  const [transactions, settransactions] = useState(()=>{
-    let savedData=localStorage.getItem("Transactions")
+  const [transactions, settransactions] = useState(() => {
+    let savedData = localStorage.getItem("Transactions");
 
-    return savedData? JSON.parse(savedData):[]
-    
-    });
+    return savedData ? JSON.parse(savedData) : [];
+  });
 
   useEffect(() => {
-    localStorage.setItem("Transactions",JSON.stringify(transactions))
-  
-   
-  }, [transactions])
-  
+    localStorage.setItem("Transactions", JSON.stringify(transactions));
+  }, [transactions]);
 
   const [text, settext] = useState("");
   const [amount, setamount] = useState("");
   const [type, settype] = useState("expense");
   const [showform, setshowform] = useState(false);
   const [search, setsearch] = useState("");
+  const [editId, seteditId] = useState(null);
 
   const income = transactions
-    .filter((t) => 
-      t.type === "income"
-    )
-    .reduce((acc, t) => 
-      acc + t.amount, 0
-    );
+    .filter((t) => t.type === "income")
+    .reduce((acc, t) => acc + t.amount, 0);
 
   const expense = transactions
-    .filter((t) => 
-      t.type === "expense"
-    )
-    .reduce((acc, t) => 
-      acc + t.amount, 0
-    );
+    .filter((t) => t.type === "expense")
+    .reduce((acc, t) => acc + t.amount, 0);
 
   const balance = income - expense;
 
@@ -48,14 +37,29 @@ function App() {
       return;
     }
 
-    const newTransaction = {
-      id: Date.now(),
-      text: text,
-      amount: Number(amount),
-      type: type,
-    };
+    if (editId !== null) {
+      settransactions(
+        transactions.map((t) =>
+          t.id === editId
+            ? {
+                ...transactions,
+                text: text,
+                amount: Number(amount),
+                type: type,
+              }
+            : t,
+        ),
+      );
+    } else {
+      const newTransaction = {
+        id: Date.now(),
+        text: text,
+        amount: Number(amount),
+        type: type,
+      };
 
-    settransactions([...transactions, newTransaction]);
+      settransactions([...transactions, newTransaction]);
+    }
 
     settext("");
     setamount("");
@@ -63,8 +67,21 @@ function App() {
     setshowform(false);
   };
 
-  const filteredtransactions = transactions.filter((t) => 
-    t.text.toLowerCase().includes(search.toLowerCase())
+  const deleteTransaction = (e) => {
+    settransactions(transactions.filter((t) => t.id !== e.id));
+  };
+
+  const updateTransaction = (e) => {
+    settext(e.text);
+    setamount(e.amount);
+    settype(e.type);
+
+    seteditId(e.id);
+    setshowform(true);
+  };
+
+  const filteredtransactions = transactions.filter((t) =>
+    t.text.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
@@ -79,7 +96,16 @@ function App() {
             Balance: <span>${balance}</span>
           </h2>
 
-          <button className="add-btn" onClick={() => setshowform(!showform)}>
+          <button
+            className="add-btn"
+            onClick={() => {
+              setshowform(!showform);
+              seteditId(null);
+              settext("");
+              setamount("");
+              settype("expense");
+            }}
+          >
             {showform ? "Cancel" : "Add"}
           </button>
         </div>
@@ -102,8 +128,7 @@ function App() {
             />
 
             <div className="radio-btn">
-            
-            <label>
+              <label>
                 <input
                   type="radio"
                   value="expense"
@@ -112,7 +137,6 @@ function App() {
                 />
                 Expense
               </label>
-
 
               <label>
                 <input
@@ -124,12 +148,10 @@ function App() {
                 Income
               </label>
 
-              
-
               {/* Submit button */}
 
               <button className="submit" type="submit">
-                Add-transaction
+                {editId !== null ? "Update-transaction" : "Add-transaction"}
               </button>
             </div>
           </form>
@@ -166,8 +188,12 @@ function App() {
               className={`transaction ${transaction.type === "income" ? "transaction-income" : "transaction-expense"}`}
               key={transaction.id}
             >
-              <span>{transaction.text + ":"}</span>
+              <span>{transaction.text}</span>
               <span>{transaction.amount}</span>
+              <button onClick={() => updateTransaction(transaction)}>
+                Edit
+              </button>
+              <span onClick={() => deleteTransaction(transaction)}>X</span>
             </div>
           ))}
         </div>
