@@ -1,6 +1,7 @@
 const express = require("express");
 
 const app = express();
+app.use(express.json())
 
 const PORT = 5000;
 
@@ -32,7 +33,7 @@ app.post("/api/transaction",(req,res)=>{
     const newTransaction={
         id:Date.now(),
         text:req.body.text,
-        amount:Number(req,body.amount),
+        amount:Number(req.body.amount),
         type:req.body.type
     }
 
@@ -56,19 +57,19 @@ app.delete("/api/transaction/:id",(req,res)=>{
 app.put("/api/transaction/:id",(req,res)=>{
     const id=Number(req.params.id)
 
-    const transaction=transaction.find(
-        transaction=>transaction.if===id
+    const transactions=transaction.find(
+        transaction=>transaction.id===id
     )
 
-    if(!transaction){
+    if(!transactions){
         return res.status(404).json({message:"transaction not found"})
     }
 
-    transaction.text=req.body.text
-    transaction.amount=Number(req.body.amount)
-    transaction.type=req.body.type
+    transactions.text=req.body.text
+    transactions.amount=Number(req.body.amount)
+    transactions.type=req.body.type
 
-    res.json(transaction)
+    res.json(transactions)
 })
 
 app.listen(PORT, () => {
