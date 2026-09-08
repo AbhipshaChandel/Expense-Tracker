@@ -49,8 +49,49 @@ app.post("/api/transaction",async(req,res)=>{
     res.status(201).json(saveTransaction)
   }catch(error){
     res.status(500).json({
-      message:"Failed to add Transaction"
+      message:"Failed to add Transaction",error:error.message
     })
+  }
+})
+
+app.delete("/api/transaction/:id",async(req,res)=>{
+  try{
+    const transaction=await Transaction.findByIdAndDelete(req.params.id)
+
+    if(!transaction){
+      return res.status(500).json({message:"transaction not found"})
+    }
+
+    res.json({message:"transaction deleted"})
+  }catch(error){
+    res.status(500).json({
+      message:"Failed to delete transaction"
+    })
+  }
+})
+
+app.put("/api/transaction/:id",async(req,res)=>{
+  try{
+    const updatetransaction=await Transaction.findByIdAndUpdate(req.params.id,
+
+      {
+        text:req.body.text,
+        amount:Number(req.body.amount),
+        type:req.body.type
+      },
+      {
+        new:true,
+        runValidators:true
+      }
+    )
+
+    if(!updatetransaction){
+      return res.status(500).json({message:"Transaction not found"})
+    }
+
+    res.json({message:"Transaction Updated successfully"})
+  }catch(error){
+    res.status(500).json({message:"Failed to update transaction",error:error.message})
   }
 })
 // let transaction=[
