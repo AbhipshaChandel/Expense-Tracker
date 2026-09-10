@@ -3,12 +3,14 @@ dns.setServers(["8.8.8.8"]);
 
 const express = require("express");
 const mongoose = require("mongoose");
+const cors=require("cors")
 require("dotenv").config();
 const Transaction=require("./models/transaction")
 
 const app = express();
 
 app.use(express.json());
+app.use(cors())
 
 const PORT = process.env.PORT || 5000;
 

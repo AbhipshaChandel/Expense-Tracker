@@ -2,15 +2,36 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
-  const [transactions, settransactions] = useState(() => {
-    let savedData = localStorage.getItem("Transactions");
+// old way of getting data
 
-    return savedData ? JSON.parse(savedData) : [];
-  });
+  // const [transactions, settransactions] = useState(() => {
+  //   let savedData = localStorage.getItem("Transactions");
 
-  useEffect(() => {
-    localStorage.setItem("Transactions", JSON.stringify(transactions));
-  }, [transactions]);
+  //   return savedData ? JSON.parse(savedData) : [];
+  // });
+
+  // New way of getting data
+  const [transactions,settransactions]=useState([])
+
+  // old way of storing
+
+  // useEffect(() => {
+  //   localStorage.setItem("Transactions", JSON.stringify(transactions));
+  // }, [transactions]);
+
+  useEffect(()=>{
+    const getTransaction=async()=>{
+      try{
+      const response=await fetch("http://localhost:5000/api/transaction")
+       const data = await response.json()
+       settransactions(data)
+      }catch(error){
+        console.log("Error fetching Transaction",error)
+      }
+      
+    }
+    getTransaction()
+  },[])
 
   const [text, settext] = useState("");
   const [amount, setamount] = useState("");
@@ -29,55 +50,136 @@ function App() {
 
   const balance = income - expense;
 
-  const addtransaction = (e) => {
-    e.preventDefault();
+  // Old method of adding transaction//
 
-    if (!text || !amount) {
-      alert("Please add a transaction");
-      return;
+
+  // const addtransaction = (e) => {
+  //   e.preventDefault();
+
+  //   if (!text || !amount) {
+  //     alert("Please add a transaction");
+  //     return;
+  //   }
+
+  //   if (editId !== null) {
+  //     settransactions(
+  //       transactions.map((t) =>
+  //         t.id === editId
+  //           ? {
+  //               ...transactions,
+  //               text: text,
+  //               amount: Number(amount),
+  //               type: type,
+  //             }
+  //           : t,
+  //       ),
+  //     );
+  //   } else {
+  //     const newTransaction = {
+  //       id: Date.now(),
+  //       text: text,
+  //       amount: Number(amount),
+  //       type: type,
+  //     };
+
+  //     settransactions([...transactions, newTransaction]);
+  //   }
+
+  //   settext("");
+  //   setamount("");
+  //   settype("expense");
+  //   setshowform(false);
+  // };
+
+
+  // New way of adding transaction//
+
+
+  const addtransaction=async(e)=>{
+    e.preventDefault()
+
+    if(!text || !amount){
+      alert("Please add transaction")
+      return
     }
+    try{
+      const response=await fetch("http://localhost:5000/api/transaction",{
 
-    if (editId !== null) {
-      settransactions(
-        transactions.map((t) =>
-          t.id === editId
-            ? {
-                ...transactions,
-                text: text,
-                amount: Number(amount),
-                type: type,
-              }
-            : t,
-        ),
-      );
-    } else {
-      const newTransaction = {
-        id: Date.now(),
-        text: text,
-        amount: Number(amount),
-        type: type,
-      };
+      method:"POST",
+      header:{
+        "content-type":Application/json
+      },
+      body:JSON.stringify({
+        text:text,
+        amount:Number(amount),
+        type:type
+      })
+      })
 
-      settransactions([...transactions, newTransaction]);
+      const newTransaction=await response.json()
+
+      settransactions([...transactions,newTransaction])
+
+      settext("")
+      setamount("")
+      settype("expense")
+      seteditId(null)
+      setshowform(false)
+    }catch(error){
+      console.log("Error adding transaction",error)
     }
+  }
 
-    settext("");
-    setamount("");
-    settype("expense");
-    setshowform(false);
-  };
+  // OLd method of deleting transaction//
 
-  const deleteTransaction = (e) => {
-    settransactions(transactions.filter((t) => t.id !== e.id));
-  };
 
-  const updateTransaction = (e) => {
+  // const deleteTransaction = (e) => {
+  //   settransactions(transactions.filter((t) => t.id !== e.id));
+  // };
+
+  // New method of deleting transaction//
+
+  const deleteTransaction=async(id)=>{
+    try{
+      await fetch(`http://localhost:5000/api/transaction/${id}`,{
+        method:"DELETE"
+      })
+
+      settransactions(transactions.filter(t=>t._id!==id))
+    }catch(error){
+      console.log("Error deleting transaction",error)
+    }
+  }
+
+  const editTransaction = async(e) => {
     settext(e.text);
     setamount(e.amount);
     settype(e.type);
 
-    seteditId(e.id);
+    seteditId(e._id);
     setshowform(true);
+
+    if(editId!==null){
+      
+        const response=await fetch(`http://localhost:5000/api/transaction/${editId}`,{
+          method:"PUT",
+          header:{
+           " content-type":"Application/json"
+          },
+          body:json.stringify({
+            text:text,
+            amount:Number(amount),
+            type:type
+          })
+        })
+
+        const updateTransaction=await response.json()
+
+        settransactions(transactions.map((t)=>
+          t._id==editId?updateTransaction:t
+      ))
+      
+    }
   };
 
   const filteredtransactions = transactions.filter((t) =>
@@ -190,10 +292,10 @@ function App() {
             >
               <span>{transaction.text}</span>
               <span>{transaction.amount}</span>
-              <button onClick={() => updateTransaction(transaction)}>
+              <button onClick={() => editTransaction(transaction)}>
                 Edit
               </button>
-              <span onClick={() => deleteTransaction(transaction)}>X</span>
+              <span onClick={() => deleteTransaction(transaction._id)}>X</span>
             </div>
           ))}
         </div>
