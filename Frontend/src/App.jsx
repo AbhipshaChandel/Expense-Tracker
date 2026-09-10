@@ -42,11 +42,11 @@ function App() {
 
   const income = transactions
     .filter((t) => t.type === "income")
-    .reduce((acc, t) => acc + t.amount, 0);
+    .reduce((acc, t) => acc +Number(t.amount) , 0);
 
   const expense = transactions
     .filter((t) => t.type === "expense")
-    .reduce((acc, t) => acc + t.amount, 0);
+    .reduce((acc, t) => acc +Number(t.amount) , 0);
 
   const balance = income - expense;
 
@@ -102,12 +102,34 @@ function App() {
       alert("Please add transaction")
       return
     }
+
     try{
+      if(editId!==null){
+      
+        const response=await fetch(`http://localhost:5000/api/transaction/${editId}`,{
+          method:"PUT",
+          headers:{
+           "Content-type":"application/json"
+          },
+          body:JSON.stringify({
+            text:text,
+            amount:Number(amount),
+            type:type
+          })
+        })
+
+        const updateTransaction=await response.json()
+
+        settransactions(transactions.map((t)=>
+          t._id==editId?updateTransaction:t
+      ))
+    }
+      else{
       const response=await fetch("http://localhost:5000/api/transaction",{
 
       method:"POST",
-      header:{
-        "content-type":Application/json
+      headers:{
+        "Content-type":"application/json"
       },
       body:JSON.stringify({
         text:text,
@@ -119,14 +141,14 @@ function App() {
       const newTransaction=await response.json()
 
       settransactions([...transactions,newTransaction])
-
+    }
       settext("")
       setamount("")
       settype("expense")
       seteditId(null)
       setshowform(false)
     }catch(error){
-      console.log("Error adding transaction",error)
+      console.log("Error adding/Editing transaction",error)
     }
   }
 
@@ -157,33 +179,12 @@ function App() {
     settype(e.type);
 
     seteditId(e._id);
-    setshowform(true);
-
-    if(editId!==null){
-      
-        const response=await fetch(`http://localhost:5000/api/transaction/${editId}`,{
-          method:"PUT",
-          header:{
-           " content-type":"Application/json"
-          },
-          body:json.stringify({
-            text:text,
-            amount:Number(amount),
-            type:type
-          })
-        })
-
-        const updateTransaction=await response.json()
-
-        settransactions(transactions.map((t)=>
-          t._id==editId?updateTransaction:t
-      ))
-      
+    setshowform(true);  
     }
-  };
+  
 
   const filteredtransactions = transactions.filter((t) =>
-    t.text.toLowerCase().includes(search.toLowerCase()),
+    t.text.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -288,7 +289,7 @@ function App() {
           {filteredtransactions.map((transaction) => (
             <div
               className={`transaction ${transaction.type === "income" ? "transaction-income" : "transaction-expense"}`}
-              key={transaction.id}
+              key={transaction._id}
             >
               <span>{transaction.text}</span>
               <span>{transaction.amount}</span>

@@ -33,7 +33,7 @@ app.get("/api/transaction",async(req,res)=>{
     const transactions=await Transaction.find()
     res.json(transactions)
   }catch(error){
-   res.status(500).json({
+   res.status(404).json({
     message:"Failed to fetch transaction"
    })
   }
@@ -50,7 +50,7 @@ app.post("/api/transaction",async(req,res)=>{
     const saveTransaction=await newTransaction.save()
     res.status(201).json(saveTransaction)
   }catch(error){
-    res.status(500).json({
+    res.status(404).json({
       message:"Failed to add Transaction",error:error.message
     })
   }
@@ -61,12 +61,12 @@ app.delete("/api/transaction/:id",async(req,res)=>{
     const transaction=await Transaction.findByIdAndDelete(req.params.id)
 
     if(!transaction){
-      return res.status(500).json({message:"transaction not found"})
+      return res.status(404).json({message:"transaction not found"})
     }
 
     res.json({message:"transaction deleted"})
   }catch(error){
-    res.status(500).json({
+    res.status(404).json({
       message:"Failed to delete transaction"
     })
   }
@@ -91,7 +91,7 @@ app.put("/api/transaction/:id",async(req,res)=>{
       return res.status(500).json({message:"Transaction not found"})
     }
 
-    res.json({message:"Transaction Updated successfully"})
+    res.json(updatetransaction)
   }catch(error){
     res.status(500).json({message:"Failed to update transaction",error:error.message})
   }
