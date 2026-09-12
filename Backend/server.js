@@ -7,6 +7,7 @@ const cors=require("cors")
 const bcrypt=require("bcryptjs")
 const jwt=require("jsonwebtoken")
 const User=require("./models/user")
+const protect=require("./middleware/authMiddleware")
 
 require("dotenv").config();
 const Transaction=require("./models/transaction")
@@ -37,7 +38,7 @@ mongoose
     try{
       const {name,email,password}=req.body
       if(!name || !email || !password){
-       return res.status(404).json({message:"Provide all information"})
+       return res.status(400).json({message:"Provide all information"})
       }
 
       const UserExist=await User.findOne({email})    
@@ -54,7 +55,7 @@ mongoose
       })
 
       res.status(201).json({
-        messaage:"User registered successfully",
+        message:"User registered successfully",
         user:{
           id:user._id,
           name:user.name,
@@ -62,7 +63,7 @@ mongoose
         }
       })
     }catch(err){
-      res.status(404).json({message:"Registration failed"})
+      res.status(500).json({message:"Registration failed"})
     }
 
   })
@@ -75,31 +76,32 @@ mongoose
       const {password,email}=req.body
       const user=await User.findOne({email})
 
-      if(!user){
+      if(!user){ 
         return res.status(401).json({message:"Invalid email or password"})
       }
 
       const checkpassword=await bcrypt.compare(
-        password,user.password
+        password,
+        user.password
       )
 
       if(!checkpassword){
         return res.status(401).json({message:"Invalid email or password"})
 
       }
-
+    
       const Token=jwt.sign(
         {
           userID:user._id
         },
         process.env.JWT_SECRET,
         {
-         ExpiresIn:"1D"
+         expiresIn:"1d"
         }
       )
 
-      res.status(400).json({
-        message:"Login Successfully",token,
+      res.status(200).json({
+        message:"Login Successfully",Token,
         user:{
           id:user._id,
           name:user.name,
@@ -107,43 +109,47 @@ mongoose
         }
       })
 
-    }catch(err){
-      res.status(500).json({message:"Login Failed"})
+    }catch(error){
+      res.status(500).json({message:"Login Failed",error:error.messaage})
     }
   })
 
 
-app.get("/api/transaction",async(req,res)=>{
+
+//-----------------------// GET API //--------------------------//
+
+app.get("/api/transaction",protect,async(req,res)=>{
   try{
-    const transactions=await Transaction.find()
+    const transactions=await Transaction.find({user:req.userID})
     res.json(transactions)
   }catch(error){
-   res.status(404).json({
+   res.status(500).json({
     message:"Failed to fetch transaction"
    })
   }
 })
 
-app.post("/api/transaction",async(req,res)=>{
+app.post("/api/transaction",protect,async(req,res)=>{
   try{
     const newTransaction=new Transaction({
       text:req.body.text,
       amount:Number(req.body.amount),
-      type:req.body.type
+      type:req.body.type,
+      user:req.userID
     })
 
     const saveTransaction=await newTransaction.save()
     res.status(201).json(saveTransaction)
   }catch(error){
-    res.status(404).json({
+    res.status(500).json({
       message:"Failed to add Transaction",error:error.message
     })
   }
 })
 
-app.delete("/api/transaction/:id",async(req,res)=>{
+app.delete("/api/transaction/:id",protect,async(req,res)=>{
   try{
-    const transaction=await Transaction.findByIdAndDelete(req.params.id)
+    const transaction=await Transaction.findByIdAndDelete({_id:req.params.id,user:req.userID})
 
     if(!transaction){
       return res.status(404).json({message:"transaction not found"})
@@ -159,7 +165,7 @@ app.delete("/api/transaction/:id",async(req,res)=>{
 
 app.put("/api/transaction/:id",async(req,res)=>{
   try{
-    const updatetransaction=await Transaction.findByIdAndUpdate(req.params.id,
+    const updatetransaction=await Transaction.findByIdAndUpdate({_id:req.params.id,user:req.userID},
 
       {
         text:req.body.text,
