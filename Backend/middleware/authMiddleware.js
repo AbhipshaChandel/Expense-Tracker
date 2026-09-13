@@ -3,7 +3,7 @@ const jwt=require("jsonwebtoken")
 const protect=(req,res,next)=>{
     try{
     const authHeader=req.headers.authorization
-    if(!authHeader || !authHeader.startsWIth("Bearer ")){
+    if(!authHeader || !authHeader.startsWith("Bearer ")){
         return res.status(401).json({message:"Not authorized"})
     }
 

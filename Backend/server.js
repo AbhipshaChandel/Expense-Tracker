@@ -10,7 +10,8 @@ const User=require("./models/user")
 const protect=require("./middleware/authMiddleware")
 
 require("dotenv").config();
-const Transaction=require("./models/transaction")
+const Transaction=require("./models/transaction");
+const { error } = require("console");
 
 const app = express();
 
@@ -63,7 +64,7 @@ mongoose
         }
       })
     }catch(err){
-      res.status(500).json({message:"Registration failed"})
+      res.status(500).json({message:"Registration failed",error:error.message})
     }
 
   })
@@ -163,7 +164,7 @@ app.delete("/api/transaction/:id",protect,async(req,res)=>{
   }
 })
 
-app.put("/api/transaction/:id",async(req,res)=>{
+app.put("/api/transaction/:id",protect,async(req,res)=>{
   try{
     const updatetransaction=await Transaction.findByIdAndUpdate({_id:req.params.id,user:req.userID},
 
