@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./register.css"
 
 function Register(){
     const [name, setname] = useState("")

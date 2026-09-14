@@ -1,3 +1,7 @@
+/* =========================
+   GLOBAL
+========================= */
+
 * {
   margin: 0;
   padding: 0;
@@ -5,33 +9,74 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #ffffff;
-  color: #111827;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  color: #222;
 }
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
 
 .container {
-  width: 600px;
-  max-width: 90%;
-  margin: 50px auto;
+  width: 90%;
+  max-width: 850px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* ---------------- HEADING ---------------- */
 
-h1 {
+/* =========================
+   HEADING
+========================= */
+
+.container > h1 {
   text-align: center;
+  margin-bottom: 30px;
   font-size: 32px;
-  margin-bottom: 70px;
+  color: #222;
 }
 
 
-/* ---------------- BALANCE SECTION ---------------- */
+/* =========================
+   LOGOUT BUTTON
+========================= */
+
+.logout {
+  display: block;
+  margin-left: auto;
+  padding: 9px 18px;
+  border: none;
+  border-radius: 7px;
+  background: #ef4444;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout:hover {
+  background: #dc2626;
+}
+
+
+/* =========================
+   BALANCE SECTION
+========================= */
 
 .balance-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  padding: 20px;
+  margin-bottom: 25px;
+  background: #f8fafc;
+  border-radius: 12px;
 }
 
 .balance-section h2 {
@@ -39,243 +84,325 @@ h1 {
 }
 
 .balance-section span {
-  font-weight: bold;
+  color: #4f46e5;
 }
 
 
-/* ---------------- ADD BUTTON ---------------- */
+/* =========================
+   ADD BUTTON
+========================= */
 
 .add-btn {
-  background-color: #111827;
-  color: white;
+  padding: 10px 22px;
   border: none;
-  padding: 12px 20px;
-  border-radius: 5px;
-  font-size: 16px;
+  border-radius: 8px;
+  background: #4f46e5;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .add-btn:hover {
-  background-color: #273449;
+  background: #3730a3;
+  transform: translateY(-1px);
 }
 
 
-/* ---------------- ADD TRANSACTION FORM ---------------- */
+/* =========================
+   ADD TRANSACTION FORM
+========================= */
 
 .add-transaction-form {
-  border: 1px solid #ddd;
   padding: 20px;
   margin-bottom: 25px;
-  border-radius: 4px;
+  background: #f8fafc;
+  border-radius: 12px;
 }
 
-.add-transaction-form input[type="text"],
-.add-transaction-form input[type="number"] {
+.add-transaction-form > input {
   width: 100%;
-  padding: 12px;
+  padding: 12px 14px;
   margin-bottom: 15px;
-
-  border: 1px solid #ddd;
-  border-radius: 4px;
-
-  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
   outline: none;
+  font-size: 15px;
 }
 
-.add-transaction-form input:focus {
-  border-color: #999;
+.add-transaction-form > input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 5px rgba(79, 70, 229, 0.2);
 }
 
 
-/* ---------------- RADIO BUTTONS ---------------- */
+/* =========================
+   RADIO BUTTONS
+========================= */
 
 .radio-btn {
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin-top: 5px;
+  gap: 25px;
+  flex-wrap: wrap;
 }
 
 .radio-btn label {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   font-size: 15px;
+  cursor: pointer;
+}
+
+.radio-btn input[type="radio"] {
+  cursor: pointer;
 }
 
 
-/* ---------------- SUBMIT BUTTON ---------------- */
+/* =========================
+   SUBMIT BUTTON
+========================= */
 
 .submit {
-  background-color: #111827;
-  color: white;
-
+  padding: 10px 18px;
   border: none;
-  border-radius: 5px;
-
-  padding: 10px 15px;
-
-  font-size: 15px;
+  border-radius: 8px;
+  background: #4f46e5;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
-
-  margin-left: 10px;
+  transition: 0.3s;
 }
 
 .submit:hover {
-  background-color: #273449;
+  background: #3730a3;
 }
 
 
-/* ---------------- SUMMARY ---------------- */
+/* =========================
+   SUMMARY
+========================= */
 
 .summary {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
-  margin-bottom: 65px;
+  margin-bottom: 30px;
 }
 
 .summary-box {
-  flex: 1;
-
-  border: 1px solid #ddd;
-  border-radius: 5px;
-
-  padding: 25px;
+  padding: 20px;
+  text-align: center;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
 }
 
 .summary-box p {
-  font-size: 17px;
-  margin-bottom: 15px;
+  margin-bottom: 8px;
+  color: #666;
+  font-size: 15px;
 }
 
 .summary-box h2 {
-  font-size: 24px;
+  font-size: 25px;
+}
+
+.summary-box .expense {
+  color: #ef4444;
+}
+
+.summary-box .income {
+  color: #16a34a;
 }
 
 
-/* ---------------- EXPENSE / INCOME COLORS ---------------- */
-
-.expense {
-  color: #dc2626;
-}
-
-.income {
-  color: #15803d;
-}
-
-
-/* ---------------- TRANSACTIONS HEADING ---------------- */
+/* =========================
+   TRANSACTION HEADING
+========================= */
 
 .transaction-heading {
-  font-size: 22px;
   margin-bottom: 15px;
+  font-size: 22px;
 }
 
 
-/* ---------------- SEARCH ---------------- */
+/* =========================
+   SEARCH
+========================= */
 
 .search {
   width: 100%;
-
-  padding: 15px;
-
-  border: none;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
   border-radius: 8px;
-
-  background-color: #e5e7eb;
-
-  font-size: 16px;
-
   outline: none;
-
-  margin-bottom: 15px;
+  font-size: 15px;
 }
 
-.search::placeholder {
-  color: #6b7280;
+.search:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 5px rgba(79, 70, 229, 0.2);
 }
 
 
-/* ---------------- TRANSACTION LIST ---------------- */
+/* =========================
+   TRANSACTION LIST
+========================= */
 
 .transaction-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 
-/* ---------------- INDIVIDUAL TRANSACTION ---------------- */
+/* =========================
+   TRANSACTION
+========================= */
 
 .transaction {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 120px 70px 30px;
   align-items: center;
+  gap: 10px;
 
-  padding: 15px 20px;
+  padding: 15px;
 
-  border: 1px solid #eeeeee;
-  border-radius: 3px;
+  background: #ffffff;
+  border-radius: 9px;
 
-  font-size: 16px;
+  border: 1px solid #e5e7eb;
 
-  border-right: 6px solid;
+  transition: 0.2s;
+}
+
+.transaction:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 
-/* Income transaction */
+/* =========================
+   INCOME / EXPENSE
+========================= */
 
 .transaction-income {
-  border-right-color: #16a34a;
+  border-left: 5px solid #16a34a;
 }
-
-
-/* Expense transaction */
 
 .transaction-expense {
-  border-right-color: #dc2626;
+  border-left: 5px solid #ef4444;
 }
 
 
-/* ---------------- MOBILE ---------------- */
+/* =========================
+   TRANSACTION TEXT
+========================= */
+
+.transaction span:first-child {
+  font-weight: 600;
+}
+
+.transaction span:nth-child(2) {
+  font-weight: 600;
+}
+
+
+/* =========================
+   EDIT BUTTON
+========================= */
+
+.transaction button {
+  padding: 7px 10px;
+  border: none;
+  border-radius: 6px;
+  background: #4f46e5;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.transaction button:hover {
+  background: #3730a3;
+}
+
+
+/* =========================
+   DELETE BUTTON / X
+========================= */
+
+.transaction span:last-child {
+  color: #ef4444;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.transaction span:last-child:hover {
+  color: #b91c1c;
+  transform: scale(1.2);
+}
+
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
 
 @media (max-width: 600px) {
 
   .container {
-    width: 90%;
-    margin: 30px auto;
+    width: 94%;
+    padding: 20px;
+    margin: 20px auto;
   }
 
-  h1 {
-    font-size: 28px;
-    margin-bottom: 45px;
+  .container > h1 {
+    font-size: 26px;
   }
 
-  .balance-section h2 {
-    font-size: 18px;
+  .balance-section {
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .add-btn {
+    width: 100%;
   }
 
   .summary {
-    gap: 10px;
-  }
-
-  .summary-box {
-    padding: 18px;
-  }
-
-  .summary-box p {
-    font-size: 15px;
-  }
-
-  .summary-box h2 {
-    font-size: 20px;
+    grid-template-columns: 1fr;
   }
 
   .radio-btn {
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
 
   .submit {
-    margin-left: 0;
+    width: 100%;
+  }
+
+  .transaction {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .transaction button {
+    width: 100%;
+  }
+
+  .transaction span:last-child {
+    text-align: right;
   }
 }
