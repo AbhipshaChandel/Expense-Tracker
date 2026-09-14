@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./register.css"
 
 function Register(){
+    const navigate=useNavigate()
     const [name, setname] = useState("")
     const [email, setemail] = useState("")
     const [password, setpassword] = useState("")
@@ -27,6 +29,7 @@ function Register(){
             return
           }
           alert("Registration Successfull")
+          navigate("/login")
         }catch(error){
             console.log("Registration error",error)
         }

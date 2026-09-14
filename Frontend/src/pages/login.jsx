@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./login.css"
 
 function Login(){
+    const navigate=useNavigate()
 const [email, setemail] = useState("")
  const [password, setpassword] = useState("")
  const handleLogin=async(e)=>{
@@ -24,6 +26,7 @@ const [email, setemail] = useState("")
         }
         localStorage.setItem("token",data.Token)
         alert("Login Successfully")
+        navigate("/expense")
     }catch(error){
         console.log("Login Failed",error)
     }
