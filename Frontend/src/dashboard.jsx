@@ -250,6 +250,11 @@ function Dashboard() {
             >
               <span>{transaction.text}</span>
               <span>{transaction.amount}</span>
+              <span>{new Date(transaction.createdAt).toLocaleDateString("en-IN",{
+                day:"numeric",
+                month:"short",
+                year:"numeric"
+              })}</span>
               <button onClick={() => editTransaction(transaction)}>Edit</button>
               <span onClick={() => deleteTransaction(transaction._id)}>X</span>
             </div>
