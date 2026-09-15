@@ -1,23 +1,8 @@
 import { useState, useEffect } from "react";
-import Navbar from "./components/Navbar"
+import Navbar from "./components/Navbar";
 import "./App.css";
 function Dashboard() {
-  // old way of getting data
-
-  // const [transactions, settransactions] = useState(() => {
-  //   let savedData = localStorage.getItem("Transactions");
-
-  //   return savedData ? JSON.parse(savedData) : [];
-  // });
-
-  // New way of getting data
   const [transactions, settransactions] = useState([]);
-
-  // old way of storing
-
-  // useEffect(() => {
-  //   localStorage.setItem("Transactions", JSON.stringify(transactions));
-  // }, [transactions]);
 
   useEffect(() => {
     const getTransaction = async () => {
@@ -60,46 +45,6 @@ function Dashboard() {
 
   const balance = income - expense;
 
-  // Old method of adding transaction//
-
-  // const addtransaction = (e) => {
-  //   e.preventDefault();
-
-  //   if (!text || !amount) {
-  //     alert("Please add a transaction");
-  //     return;
-  //   }
-
-  //   if (editId !== null) {
-  //     settransactions(
-  //       transactions.map((t) =>
-  //         t.id === editId
-  //           ? {
-  //               ...transactions,
-  //               text: text,
-  //               amount: Number(amount),
-  //               type: type,
-  //             }
-  //           : t,
-  //       ),
-  //     );
-  //   } else {
-  //     const newTransaction = {
-  //       id: Date.now(),
-  //       text: text,
-  //       amount: Number(amount),
-  //       type: type,
-  //     };
-
-  //     settransactions([...transactions, newTransaction]);
-  //   }
-
-  //   settext("");
-  //   setamount("");
-  //   settype("expense");
-  //   setshowform(false);
-  // };
-
   // New way of adding transaction//
 
   const addtransaction = async (e) => {
@@ -108,6 +53,11 @@ function Dashboard() {
     if (!text || !amount) {
       alert("Please add transaction");
       return;
+    }
+
+    const amountnumber=Number(amount);
+    if(!Number.isInteger(amountnumber) || amountnumber<=0){
+      return alert("Amount should be positive")
     }
 
     try {
@@ -123,7 +73,7 @@ function Dashboard() {
             },
             body: JSON.stringify({
               text: text,
-              amount: Number(amount),
+              amount: amountnumber,
               type: type,
             }),
           },
@@ -143,7 +93,7 @@ function Dashboard() {
           },
           body: JSON.stringify({
             text: text,
-            amount: Number(amount),
+            amount: amountnumber,
             type: type,
           }),
         });
@@ -161,12 +111,6 @@ function Dashboard() {
       console.log("Error adding/Editing transaction", error);
     }
   };
-
-  // OLd method of deleting transaction//
-
-  // const deleteTransaction = (e) => {
-  //   settransactions(transactions.filter((t) => t.id !== e.id));
-  // };
 
   // New method of deleting transaction//
 
@@ -197,11 +141,9 @@ function Dashboard() {
     t.text.toLowerCase().includes(search.toLowerCase()),
   );
 
-
-
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <div className="container">
         {/* Heading */}
         <h1>Expense Tracker</h1>
@@ -237,10 +179,12 @@ function Dashboard() {
             />
 
             <input
-              type="text"
+              type="number"
               placeholder="Enter amount"
               value={amount}
               onChange={(e) => setamount(e.target.value)}
+              min="1"
+              step="1"
             />
 
             <div className="radio-btn">
@@ -317,3 +261,63 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
+// old way of getting data
+
+// const [transactions, settransactions] = useState(() => {
+//   let savedData = localStorage.getItem("Transactions");
+
+//   return savedData ? JSON.parse(savedData) : [];
+// });
+
+// old way of storing
+
+// useEffect(() => {
+//   localStorage.setItem("Transactions", JSON.stringify(transactions));
+// }, [transactions]);
+
+// Old method of adding transaction//
+
+// const addtransaction = (e) => {
+//   e.preventDefault();
+
+//   if (!text || !amount) {
+//     alert("Please add a transaction");
+//     return;
+//   }
+
+//   if (editId !== null) {
+//     settransactions(
+//       transactions.map((t) =>
+//         t.id === editId
+//           ? {
+//               ...transactions,
+//               text: text,
+//               amount: Number(amount),
+//               type: type,
+//             }
+//           : t,
+//       ),
+//     );
+//   } else {
+//     const newTransaction = {
+//       id: Date.now(),
+//       text: text,
+//       amount: Number(amount),
+//       type: type,
+//     };
+
+//     settransactions([...transactions, newTransaction]);
+//   }
+
+//   settext("");
+//   setamount("");
+//   settype("expense");
+//   setshowform(false);
+// };
+
+// OLd method of deleting transaction//
+
+// const deleteTransaction = (e) => {
+//   settransactions(transactions.filter((t) => t.id !== e.id));
+// };

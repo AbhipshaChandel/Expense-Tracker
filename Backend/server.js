@@ -131,10 +131,15 @@ app.get("/api/transaction",protect,async(req,res)=>{
 })
 
 app.post("/api/transaction",protect,async(req,res)=>{
+  const amount=Number(req.body.amount)
+  if(!Number.isInteger(amount) || amount <=0){
+    return res.status(400).json({message:"Amount must be positive integer"})
+  }
+
   try{
     const newTransaction=new Transaction({
       text:req.body.text,
-      amount:Number(req.body.amount),
+      amount:amount,
       type:req.body.type,
       user:req.userID
     })
@@ -165,12 +170,16 @@ app.delete("/api/transaction/:id",protect,async(req,res)=>{
 })
 
 app.put("/api/transaction/:id",protect,async(req,res)=>{
+  const amount=Number(req.body.amount)
+  if(!Number.isInteger(amount) || amount <=0){
+    return res.status(400).json({message:"Amount must be positive integer"})
+  }
   try{
     const updatetransaction=await Transaction.findByIdAndUpdate({_id:req.params.id,user:req.userID},
 
       {
         text:req.body.text,
-        amount:Number(req.body.amount),
+        amount:amount,
         type:req.body.type
       },
       {
