@@ -1,8 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import Register from "./pages/register";
 import Login from "./pages/login";
-import ExpenseTracker from "./expenseTracker";
-import ProtectedRouter from "./protectedRoutes"
+import Dashboard from "./dashboard";
+import Statistics from "./pages/statistics";
+import Profile from "./pages/profile";
+import ProtectedRouter from "./protectedRoutes";
 function App() {
   
 
@@ -13,7 +15,9 @@ function App() {
         <Route path="/" element={<Navigate to="/register"/>}/>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/expense" element={<ProtectedRouter><ExpenseTracker /></ProtectedRouter>} />
+          <Route path="/dashboard" element={<ProtectedRouter><Dashboard /></ProtectedRouter>} />
+          <Route path="/statistics" element={<ProtectedRouter><Statistics/></ProtectedRouter>}/>
+          <Route path="/profile" element={<ProtectedRouter><Profile/></ProtectedRouter>}/>
 
         </Routes>
       </BrowserRouter>

@@ -111,7 +111,7 @@ mongoose
       })
 
     }catch(error){
-      res.status(500).json({message:"Login Failed",error:error.messaage})
+      res.status(500).json({message:"Login Failed",error:error.message})
     }
   })
 

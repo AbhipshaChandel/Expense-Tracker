@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import Navbar from "./components/Navbar"
 import "./App.css";
-function ExpenseTracker(){
-// old way of getting data
+function Dashboard() {
+  // old way of getting data
 
   // const [transactions, settransactions] = useState(() => {
   //   let savedData = localStorage.getItem("Transactions");
@@ -24,11 +25,16 @@ function ExpenseTracker(){
         const token = localStorage.getItem("token");
         const response = await fetch("http://localhost:5000/api/transaction", {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         });
         const data = await response.json();
-           
+
+        if (!response.ok) {
+          alert(data.message);
+          return;
+        }
+
         settransactions(data);
       } catch (error) {
         console.log("Error fetching Transaction", error);
@@ -191,16 +197,12 @@ function ExpenseTracker(){
     t.text.toLowerCase().includes(search.toLowerCase()),
   );
 
-  const Logout=()=>{
-    localStorage.removeItem("token")
-    window.location.href="/login"
-  }
 
-    return(
-        <>
-<div className="container">
 
-<button className="logout" onClick={Logout}>Logout</button>
+  return (
+    <>
+    <Navbar/>
+      <div className="container">
         {/* Heading */}
         <h1>Expense Tracker</h1>
 
@@ -310,10 +312,8 @@ function ExpenseTracker(){
           ))}
         </div>
       </div>
-
-
-        </>
-    )
+    </>
+  );
 }
 
-export default ExpenseTracker;
+export default Dashboard;
