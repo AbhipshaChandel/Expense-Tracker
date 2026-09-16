@@ -120,7 +120,7 @@ mongoose
 
   app.get("/api/auth/profile",protect,async(req,res)=>{
      try{
-      const user=await User.findById(req.userID)
+      const user=await User.findById(req.userID).select("-password")
 
       if(!user){
         return res.status(400).json({message:"User not found"})
