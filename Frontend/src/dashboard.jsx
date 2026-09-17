@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Navbar from "./components/Navbar";
 import "./App.css";
 function Dashboard() {
   const [transactions, settransactions] = useState([]);
@@ -34,6 +33,7 @@ function Dashboard() {
   const [showform, setshowform] = useState(false);
   const [search, setsearch] = useState("");
   const [editId, seteditId] = useState(null);
+  const [category, setcategory] = useState("");
 
   const income = transactions
     .filter((t) => t.type === "income")
@@ -50,14 +50,14 @@ function Dashboard() {
   const addtransaction = async (e) => {
     e.preventDefault();
 
-    if (!text || !amount) {
+    if (!text || !amount || !category) {
       alert("Please add transaction");
       return;
     }
 
-    const amountnumber=Number(amount);
-    if(!Number.isInteger(amountnumber) || amountnumber<=0){
-      return alert("Amount should be positive")
+    const amountnumber = Number(amount);
+    if (!Number.isInteger(amountnumber) || amountnumber <= 0) {
+      return alert("Amount should be positive");
     }
 
     try {
@@ -75,6 +75,7 @@ function Dashboard() {
               text: text,
               amount: amountnumber,
               type: type,
+              category:category
             }),
           },
         );
@@ -95,6 +96,7 @@ function Dashboard() {
             text: text,
             amount: amountnumber,
             type: type,
+            category:category
           }),
         });
 
@@ -107,6 +109,7 @@ function Dashboard() {
       settype("expense");
       seteditId(null);
       setshowform(false);
+      setcategory("")
     } catch (error) {
       console.log("Error adding/Editing transaction", error);
     }
@@ -134,6 +137,7 @@ function Dashboard() {
     settype(e.type);
 
     seteditId(e._id);
+    setcategory(e.category)
     setshowform(true);
   };
 
@@ -143,7 +147,6 @@ function Dashboard() {
 
   return (
     <>
-      <Navbar />
       <div className="container">
         {/* Heading */}
         <h1>Expense Tracker</h1>
@@ -207,6 +210,19 @@ function Dashboard() {
                 />
                 Income
               </label>
+              <select
+                value={category}
+                onChange={(e) => setcategory(e.target.value)}
+              >
+                <option value="">Select Category</option>
+                <option value="Food">Food</option>
+                <option value="Travel">Travel</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Bills">Bills</option>
+                <option value="Education">Education</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Other">Other</option>
+              </select>
 
               {/* Submit button */}
 
@@ -249,12 +265,15 @@ function Dashboard() {
               key={transaction._id}
             >
               <span>{transaction.text}</span>
+              <span>{transaction.category}</span>
               <span>{transaction.amount}</span>
-              <span>{new Date(transaction.createdAt).toLocaleDateString("en-IN",{
-                day:"numeric",
-                month:"short",
-                year:"numeric"
-              })}</span>
+              <span>
+                {new Date(transaction.createdAt).toLocaleDateString("en-IN", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                })}
+              </span>
               <button onClick={() => editTransaction(transaction)}>Edit</button>
               <span onClick={() => deleteTransaction(transaction._id)}>X</span>
             </div>

@@ -164,6 +164,7 @@ app.post("/api/transaction",protect,async(req,res)=>{
       text:req.body.text,
       amount:amount,
       type:req.body.type,
+      category:req.body.category,
       user:req.userID
     })
 
@@ -203,7 +204,8 @@ app.put("/api/transaction/:id",protect,async(req,res)=>{
       {
         text:req.body.text,
         amount:amount,
-        type:req.body.type
+        type:req.body.type,
+        category:req.body.category
       },
       {
         new:true,

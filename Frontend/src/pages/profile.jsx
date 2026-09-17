@@ -1,5 +1,4 @@
 import {useState,useEffect} from "react";
-import NavBar from "../components/Navbar"
 
 function Profile(){
     const [user, setuser] = useState(null)
@@ -33,7 +32,6 @@ function Profile(){
     }
     return(
         <>
-        <NavBar/>
          <div className="profile">
             <h1>My Profile</h1>
             <div className="profile-card">
