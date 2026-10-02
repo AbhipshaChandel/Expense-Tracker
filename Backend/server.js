@@ -12,6 +12,7 @@ const protect=require("./middleware/authMiddleware")
 require("dotenv").config();
 const Transaction=require("./models/transaction");
 const { error } = require("console");
+const transaction = require("./models/transaction");
 
 const app = express();
 
@@ -125,13 +126,60 @@ mongoose
       if(!user){
         return res.status(400).json({message:"User not found"})
       }
+
+      const transactions= await Transaction.find({
+        user:req.userID
+      }).sort({createdAt:-1})
+
+      const totaltransactions=transactions.length
+      const totalincome=transactions
+      .filter((t)=>t.type==="income")
+      .reduce((acc,t)=>acc+Number(t.amount),0)
+
+      const totalexpense=transactions
+      .filter((t)=>t.type==="expense")
+      .reduce((acc,t)=>acc+Number(t.amount),0)
+
+      const balance=totalincome-totalexpense
+
+      const categoryamount={}
+      transactions
+      .filter((t)=>t.type==="expense")
+      .forEach((t)=>{
+         if(!categoryamount[t.category]){
+          categoryamount[t.category]=0
+         }
+         categoryamount[t.category]+=Number(t.amount)
+      })
+
+      let topcategory="None"
+      let topcategoryamount=0
+
+      for (const category in categoryamount){
+        if(categoryamount[category]>topcategoryamount){
+          topcategory=category
+          topcategoryamount=categoryamount[category]
+        }
+      }
       res.status(200).json({
     user:{
       id:user._id,
       name:user.name,
       email:user.email,
+      createdAt:user.createdAt
 
-    }
+    },
+    statistics:{
+     totalTransactions:totaltransactions,
+      totalIncome:totalincome,
+      totalExpense:totalexpense,
+      balance:balance
+    },
+    topCategory:{
+      name:topcategory,
+      categoryAmount:topcategoryamount
+    },
+    recentTransactions:transactions.slice(0,5)
       })
      }catch(error){
       res.status(500).json({message:"failed to fetch profile"})

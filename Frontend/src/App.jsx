@@ -3,8 +3,8 @@ import Register from "./pages/register";
 import Login from "./pages/login";
 import Dashboard from "./dashboard";
 import Statistics from "./pages/statistics";
-import Profile from "./pages/profile";
 import ProtectedRouter from "./protectedRoutes";
+import Profile from "./pages/profile";
 import NavBar from "./components/Navbar"
 function App() {
   
