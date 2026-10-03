@@ -38,6 +38,18 @@
     font-weight: bold;
 }
 
+.chart-box {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.chart-box h2 {
+    margin-bottom: 20px;
+}
+
 
 /* CATEGORY */
 

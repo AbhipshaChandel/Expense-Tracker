@@ -1,3 +1,18 @@
+import {
+    BarChart,
+    Bar,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    ResponsiveContainer
+} from "recharts";
+
+import {
+    PieChart,
+    Pie,
+    Cell
+} from "recharts";
 import { useEffect, useState } from "react";
 import "./Statistics.css";
 
@@ -67,6 +82,14 @@ function Statistics() {
 
     const totaltransactions = transactions.length;
 
+    const incomeexpense = [
+    {
+        name: "Money",
+        Income: income,
+        Expense: expense
+    }
+];
+
 
     // ---------------- CATEGORY EXPENSE ----------------
 
@@ -83,6 +106,13 @@ function Statistics() {
             categoryamount[t.category] += Number(t.amount);
 
         });
+
+        const categorydata = Object.entries(categoryamount).map(
+    ([category, amount]) => ({
+        name: category,
+        value: amount
+    })
+);
 
 
     return (
@@ -118,6 +148,40 @@ function Statistics() {
 
             </div>
 
+            <div className="chart-box">
+
+    <h2>Income vs Expense</h2>
+
+    <ResponsiveContainer width="100%" height={300}>
+
+        <BarChart data={incomeexpense}>
+
+            <CartesianGrid strokeDasharray="3 3" />
+
+            <XAxis dataKey="name" />
+
+            <YAxis />
+
+            <Tooltip />
+
+            <Bar
+                dataKey="Income"
+                fill="#16a34a"
+            />
+
+            <Bar
+                dataKey="Expense"
+                fill="#dc2626"
+            />
+
+        </BarChart>
+
+    </ResponsiveContainer>
+
+</div>
+
+
+
 
             {/* CATEGORY STATISTICS */}
 
@@ -151,6 +215,48 @@ function Statistics() {
                 )}
 
             </div>
+
+            <div className="chart-box">
+
+    <h2>Expense by Category</h2>
+
+    {categorydata.length === 0 ? (
+
+        <p>No expense data available.</p>
+
+    ) : (
+
+        <ResponsiveContainer width="100%" height={350}>
+
+            <PieChart>
+
+                <Pie
+                    data={categorydata}
+                    dataKey="value"
+                    nameKey="name"
+                    outerRadius={120}
+                    label
+                >
+
+                    {categorydata.map((entry, index) => (
+
+                        <Cell
+                            key={`cell-${index}`}
+                        />
+
+                    ))}
+
+                </Pie>
+
+                <Tooltip />
+
+            </PieChart>
+
+        </ResponsiveContainer>
+
+    )}
+
+</div>
 
         </div>
 
