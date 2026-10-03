@@ -187,6 +187,65 @@ mongoose
   })
 
 
+  // -----------------PUT PROFILE----------------------//
+
+  app.put("/api/auth/profile", protect, async (req, res) => {
+
+    try {
+
+        const { name, email } = req.body;
+
+        if (!name || !email) {
+            return res.status(400).json({
+                message: "Name and email are required"
+            });
+        }
+
+        const existingUser = await User.findOne({
+            email,
+            _id: { $ne: req.userID }
+        });
+
+        if (existingUser) {
+            return res.status(400).json({
+                message: "Email already in use"
+            });
+        }
+
+        const user = await User.findByIdAndUpdate(
+            req.userID,
+            {
+                name,
+                email
+            },
+            {
+                new: true,
+                runValidators: true
+            }
+        ).select("-password");
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        res.status(200).json({
+            message: "Profile updated successfully",
+            user
+        });
+
+    } catch (error) {
+
+        console.log("PROFILE UPDATE ERROR:", error);
+
+        res.status(500).json({
+            message: "Failed to update profile"
+        });
+
+    }
+});
+
 
 //-----------------------// GET API //--------------------------//
 

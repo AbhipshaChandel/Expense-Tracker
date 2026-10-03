@@ -10,6 +10,10 @@ function Profile() {
     const [statistics, setstatistics] = useState(null);
     const [topCategory, settopCategory] = useState(null);
     const [recentTransactions, setrecentTransactions] = useState([]);
+    const [editmode, seteditmode] = useState(false);
+
+const [name, setname] = useState("");
+const [email, setemail] = useState("");
 
     useEffect(() => {
 
@@ -39,6 +43,8 @@ function Profile() {
                 setstatistics(data.statistics);
                 settopCategory(data.topCategory);
                 setrecentTransactions(data.recentTransactions);
+setname(data.user.name);
+setemail(data.user.email);
 
             } catch (error) {
 
@@ -55,6 +61,46 @@ function Profile() {
     if (!user || !statistics || !topCategory) {
         return <h2>Loading...</h2>;
     }
+
+    const updateProfile = async () => {
+
+    try {
+
+        const token = localStorage.getItem("token");
+
+        const response = await fetch(
+            "http://localhost:5000/api/auth/profile",
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    name,
+                    email
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert(data.message);
+            return;
+        }
+
+        setuser(data.user);
+        seteditmode(false);
+
+        alert("Profile updated successfully");
+
+    } catch (error) {
+
+        console.log("Error updating profile", error);
+
+    }
+};
 
 
     const logout = () => {
@@ -81,9 +127,44 @@ function Profile() {
                     {user.name.charAt(0).toUpperCase()}
                 </div>
 
-                <h2>{user.name}</h2>
+                {editmode ? (
 
-                <p>{user.email}</p>
+        <>
+            <input
+                type="text"
+                value={name}
+                onChange={(e) => setname(e.target.value)}
+            />
+
+            <input
+                type="email"
+                value={email}
+                onChange={(e) => setemail(e.target.value)}
+            />
+
+            <button onClick={updateProfile}>
+                Save Changes
+            </button>
+
+            <button onClick={() => seteditmode(false)}>
+                Cancel
+            </button>
+        </>
+
+    ) : (
+
+        <>
+            <h2>{user.name}</h2>
+
+            <p>{user.email}</p>
+
+            <button onClick={() => seteditmode(true)}>
+                Edit Profile
+            </button>
+        </>
+
+    )}
+
 
             </div>
 

@@ -125,7 +125,7 @@ function Dashboard() {
     if (!confirmDelete) {
         return;
     }
-    
+
     try {
       const token = localStorage.getItem("token");
       await fetch(`http://localhost:5000/api/transaction/${id}`, {
@@ -283,8 +283,12 @@ function Dashboard() {
                 })}
               </span>
               <button onClick={() => editTransaction(transaction)}>Edit</button>
-              <span onClick={() => deleteTransaction(transaction._id)}>X</span>
-            </div>
+<button
+    onClick={() => deleteTransaction(transaction._id)}
+    className="delete-btn"
+>
+    Delete
+</button>            </div>
           ))}
         </div>
       </div>
