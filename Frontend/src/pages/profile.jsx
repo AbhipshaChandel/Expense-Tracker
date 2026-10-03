@@ -11,6 +11,10 @@ function Profile() {
     const [topCategory, settopCategory] = useState(null);
     const [recentTransactions, setrecentTransactions] = useState([]);
     const [editmode, seteditmode] = useState(false);
+    const [showPasswordForm, setshowPasswordForm] = useState(false);
+    const [currentPassword, setcurrentPassword] = useState("");
+const [newPassword, setnewPassword] = useState("");
+const [confirmPassword, setconfirmPassword] = useState("");
 
 const [name, setname] = useState("");
 const [email, setemail] = useState("");
@@ -103,6 +107,59 @@ setemail(data.user.email);
 };
 
 
+const changePassword = async () => {
+
+    if (newPassword !== confirmPassword) {
+
+        alert("New passwords do not match");
+
+        return;
+    }
+
+    try {
+
+        const token = localStorage.getItem("token");
+
+        const response = await fetch(
+            "http://localhost:5000/api/auth/change-password",
+            {
+                method: "PUT",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+
+                body: JSON.stringify({
+                    currentPassword,
+                    newPassword
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+
+            alert(data.message);
+
+            return;
+        }
+
+        alert("Password changed successfully");
+
+        setcurrentPassword("");
+        setnewPassword("");
+        setconfirmPassword("");
+
+    } catch (error) {
+
+        console.log("Error changing password", error);
+
+    }
+};
+
+
     const logout = () => {
 
         localStorage.removeItem("token");
@@ -165,6 +222,74 @@ setemail(data.user.email);
 
     )}
 
+
+  <h2>Change Password</h2>
+
+    {!showPasswordForm ? (
+
+        // Only button is shown initially
+        <button
+            className="change-password-button"
+            onClick={() => setshowPasswordForm(true)}
+        >
+            Change Password
+        </button>
+
+    ) : (
+
+        // Form appears after clicking the button
+        <div className="password-form">
+
+            <input
+                type="password"
+                placeholder="Current Password"
+                value={currentPassword}
+                onChange={(e) =>
+                    setcurrentPassword(e.target.value)
+                }
+            />
+
+            <input
+                type="password"
+                placeholder="New Password"
+                value={newPassword}
+                onChange={(e) =>
+                    setnewPassword(e.target.value)
+                }
+            />
+
+            <input
+                type="password"
+                placeholder="Confirm New Password"
+                value={confirmPassword}
+                onChange={(e) =>
+                    setconfirmPassword(e.target.value)
+                }
+            />
+
+            <div className="password-buttons">
+
+                <button onClick={changePassword}>
+                    Update Password
+                </button>
+
+                <button
+                    type="button"
+                    onClick={() => {
+                        setshowPasswordForm(false);
+                        setcurrentPassword("");
+                        setnewPassword("");
+                        setconfirmPassword("");
+                    }}
+                >
+                    Cancel
+                </button>
+
+            </div>
+
+        </div>
+
+    )}
 
             </div>
 

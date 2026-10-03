@@ -247,6 +247,72 @@ mongoose
 });
 
 
+// ------------------------PUT PASSWORD CHANGE-------------------//
+
+app.put("/api/auth/change-password", protect, async (req, res) => {
+
+    try {
+
+        const {
+            currentPassword,
+            newPassword
+        } = req.body;
+
+        if (!currentPassword || !newPassword) {
+            return res.status(400).json({
+                message: "Please provide all fields"
+            });
+        }
+
+        if (newPassword.length < 6) {
+            return res.status(400).json({
+                message: "New password must be at least 6 characters"
+            });
+        }
+
+        const user = await User.findById(req.userID);
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        const passwordMatch = await bcrypt.compare(
+            currentPassword,
+            user.password
+        );
+
+        if (!passwordMatch) {
+            return res.status(400).json({
+                message: "Current password is incorrect"
+            });
+        }
+
+        const hashedPassword = await bcrypt.hash(
+            newPassword,
+            10
+        );
+
+        user.password = hashedPassword;
+
+        await user.save();
+
+        res.status(200).json({
+            message: "Password changed successfully"
+        });
+
+    } catch (error) {
+
+        console.log("CHANGE PASSWORD ERROR:", error);
+
+        res.status(500).json({
+            message: "Failed to change password"
+        });
+
+    }
+});
+
 //-----------------------// GET API //--------------------------//
 
 app.get("/api/transaction",protect,async(req,res)=>{
