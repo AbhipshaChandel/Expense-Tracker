@@ -118,6 +118,14 @@ function Dashboard() {
   // New method of deleting transaction//
 
   const deleteTransaction = async (id) => {
+      const confirmDelete = window.confirm(
+        "Are you sure you want to delete this transaction?"
+    );
+
+    if (!confirmDelete) {
+        return;
+    }
+    
     try {
       const token = localStorage.getItem("token");
       await fetch(`http://localhost:5000/api/transaction/${id}`, {
