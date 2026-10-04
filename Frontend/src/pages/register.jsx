@@ -1,71 +1,75 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./register.css"
+import "./register.css";
 
-function Register(){
-    const navigate=useNavigate()
-    const [name, setname] = useState("")
-    const [email, setemail] = useState("")
-    const [password, setpassword] = useState("")
+function Register() {
+  const navigate = useNavigate();
+  const [name, setname] = useState("");
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
 
-    const handleRegister=async(e)=>{
-        e.preventDefault()
-        try{
-          const response=  await fetch("http://localhost:5000/api/auth/register",
-            {method:"POST",
-                headers:{
-                    "Content-type":"application/json"
-                },
-                body:JSON.stringify({
-                    name,   
-                    password,
-                    email
-                })
-            }
-          )
-          const data=await response.json()
-          if(!response.ok){
-            alert(data.message)
-            return
-          }
-          alert("Registration Successfull")
-          navigate("/login")
-        }catch(error){
-            console.log("Registration error",error)
-        }
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          password,
+          email,
+        }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        alert(data.message);
+        return;
+      }
+      alert("Registration Successfull");
+      navigate("/login");
+    } catch (error) {
+      console.log("Registration error", error);
     }
-    return(
-        <>
-            <div className="Registration page">
-                <h1>Create Account</h1>
-                <form action="" onSubmit={handleRegister}>
-                    <input type="text"
-                    placeholder="Name"
-                      value={name}
-                       onChange={(e)=>setname(e.target.value)}
-                     />
+  };
+  return (
+    <>
+      <div className="Registration page">
+        <h1>Create Account</h1>
+        <form action="" onSubmit={handleRegister}>
+          <input
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setname(e.target.value)}
+          />
 
-                     <input type="email"
-                     placeholder="email"
-                     value={email}
-                     onChange={(e)=>setemail(e.target.value)}
-                      />
+          <input
+            type="email"
+            placeholder="email"
+            value={email}
+            onChange={(e) => setemail(e.target.value)}
+          />
 
-                      <input type="password"
-                      placeholder="password"
-                      value={password}
-                      onChange={(e)=>setpassword(e.target.value)}
-                       />
+          <input
+            type="password"
+            placeholder="password"
+            value={password}
+            onChange={(e) => setpassword(e.target.value)}
+          />
 
-                       <button type="submit">Register</button>
-                       <p>
-                        Already have an account?
-                        <button type="button"  onClick={() => navigate("/login")}>Login</button>
-                       </p>
-                </form>
-            </div>
-        </>
-    )
+          <button type="submit">Register</button>
+          <p>
+            Already have an account?
+            <button type="button" onClick={() => navigate("/login")}>
+              Login
+            </button>
+          </p>
+        </form>
+      </div>
+    </>
+  );
 }
 
 export default Register;

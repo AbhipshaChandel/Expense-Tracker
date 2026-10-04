@@ -3,112 +3,106 @@
 ========================= */
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f6f8;
-    color: #222;
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+  color: #222;
 }
-
 
 /* =========================
    MAIN CONTAINER
 ========================= */
 
 .container {
-    width: 90%;
-    max-width: 1100px;
-    margin: 40px auto;
+  width: 90%;
+  max-width: 1100px;
+  margin: 40px auto;
 }
-
 
 /* =========================
    MAIN HEADING
 ========================= */
 
 .container > h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 32px;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 32px;
 }
-
 
 /* =========================
    BALANCE SECTION
 ========================= */
 
 .balance-section {
-    background-color: white;
-    padding: 25px;
+  background-color: white;
+  padding: 25px;
 
-    border-radius: 12px;
+  border-radius: 12px;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
 
 .balance-section h2 {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .balance-section h2 span {
-    color: #2563eb;
+  color: #2563eb;
 }
-
 
 /* =========================
    ADD BUTTON
 ========================= */
 
 .add-btn {
-    background-color: #2563eb;
-    color: white;
+  background-color: #2563eb;
+  color: white;
 
-    border: none;
-    border-radius: 7px;
+  border: none;
+  border-radius: 7px;
 
-    padding: 11px 25px;
+  padding: 11px 25px;
 
-    font-size: 16px;
+  font-size: 16px;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .add-btn:hover {
-    background-color: #1d4ed8;
+  background-color: #1d4ed8;
 }
-
 
 /* =========================
    ADD TRANSACTION FORM
 ========================= */
 
 .add-transaction-form {
-    background-color: white;
+  background-color: white;
 
-    padding: 25px;
+  padding: 25px;
 
-    border-radius: 12px;
+  border-radius: 12px;
 
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    gap: 18px;
+  gap: 18px;
 }
-
 
 /* =========================
    TEXT & NUMBER INPUT
@@ -116,370 +110,351 @@ body {
 
 .add-transaction-form input[type="text"],
 .add-transaction-form input[type="number"] {
-    width: 100%;
+  width: 100%;
 
-    padding: 12px;
+  padding: 12px;
 
-    border: 1px solid #d1d5db;
+  border: 1px solid #d1d5db;
 
-    border-radius: 7px;
+  border-radius: 7px;
 
-    font-size: 15px;
+  font-size: 15px;
 
-    outline: none;
+  outline: none;
 }
 
 .add-transaction-form input[type="text"]:focus,
 .add-transaction-form input[type="number"]:focus {
-    border-color: #2563eb;
+  border-color: #2563eb;
 }
-
 
 /* =========================
    RADIO BUTTON SECTION
 ========================= */
 
 .radio-btn {
-    display: flex;
+  display: flex;
 
-    align-items: center;
+  align-items: center;
 
-    gap: 25px;
+  gap: 25px;
 
-    flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .radio-btn label {
-    display: flex;
+  display: flex;
 
-    align-items: center;
+  align-items: center;
 
-    gap: 7px;
+  gap: 7px;
 
-    cursor: pointer;
+  cursor: pointer;
 }
-
 
 /* =========================
    CATEGORY SELECT
 ========================= */
 
 .radio-btn select {
-    width: 200px;
+  width: 200px;
 
-    padding: 11px;
+  padding: 11px;
 
-    border: 1px solid #d1d5db;
+  border: 1px solid #d1d5db;
 
-    border-radius: 7px;
+  border-radius: 7px;
 
-    background-color: white;
+  background-color: white;
 
-    font-size: 15px;
+  font-size: 15px;
 
-    outline: none;
+  outline: none;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .radio-btn select:focus {
-    border-color: #2563eb;
+  border-color: #2563eb;
 }
-
 
 /* =========================
    SUBMIT BUTTON
 ========================= */
 
 .submit {
-    background-color: #16a34a;
+  background-color: #16a34a;
 
-    color: white;
+  color: white;
 
-    border: none;
+  border: none;
 
-    border-radius: 7px;
+  border-radius: 7px;
 
-    padding: 11px 20px;
+  padding: 11px 20px;
 
-    font-size: 15px;
+  font-size: 15px;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .submit:hover {
-    background-color: #15803d;
+  background-color: #15803d;
 }
-
 
 /* =========================
    SUMMARY
 ========================= */
 
 .summary {
-    display: grid;
+  display: grid;
 
-    grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
 
-    gap: 20px;
+  gap: 20px;
 
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .summary-box {
-    background-color: white;
+  background-color: white;
 
-    padding: 25px;
+  padding: 25px;
 
-    border-radius: 12px;
+  border-radius: 12px;
 
-    text-align: center;
+  text-align: center;
 
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
 
 .summary-box p {
-    color: #666;
+  color: #666;
 
-    font-size: 16px;
+  font-size: 16px;
 
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .summary-box h2 {
-    font-size: 28px;
+  font-size: 28px;
 }
-
 
 /* =========================
    EXPENSE / INCOME
 ========================= */
 
 .summary-box .expense {
-    color: #dc2626;
+  color: #dc2626;
 }
 
 .summary-box .income {
-    color: #16a34a;
+  color: #16a34a;
 }
-
 
 /* =========================
    TRANSACTION HEADING
 ========================= */
 
 .transaction-heading {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
-
 
 /* =========================
    SEARCH
 ========================= */
 
 .search {
-    width: 100%;
+  width: 100%;
 
-    padding: 13px 15px;
+  padding: 13px 15px;
 
-    border: 1px solid #d1d5db;
+  border: 1px solid #d1d5db;
 
-    border-radius: 8px;
+  border-radius: 8px;
 
-    font-size: 16px;
+  font-size: 16px;
 
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 
-    outline: none;
+  outline: none;
 }
 
 .search:focus {
-    border-color: #2563eb;
+  border-color: #2563eb;
 }
-
 
 /* =========================
    TRANSACTION LIST
 ========================= */
 
 .transaction-list {
-    display: flex;
+  display: flex;
 
-    flex-direction: column;
+  flex-direction: column;
 
-    gap: 12px;
+  gap: 12px;
 }
-
 
 /* =========================
    TRANSACTION CARD
 ========================= */
 
 .transaction {
-    background-color: white;
+  background-color: white;
 
-    min-height: 65px;
+  min-height: 65px;
 
-    padding: 15px 20px;
+  padding: 15px 20px;
 
-    border-radius: 10px;
+  border-radius: 10px;
 
-    display: grid;
+  display: grid;
 
-    grid-template-columns:
-        1.5fr
-        1fr
-        1fr
-        1.2fr
-        auto
-        auto;
+  grid-template-columns:
+    1.5fr
+    1fr
+    1fr
+    1.2fr
+    auto
+    auto;
 
-    align-items: center;
+  align-items: center;
 
-    gap: 15px;
+  gap: 15px;
 
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 
-    border-left: 5px solid #dc2626;
+  border-left: 5px solid #dc2626;
 }
-
 
 /* Income */
 
 .transaction-income {
-    border-left-color: #16a34a;
+  border-left-color: #16a34a;
 }
-
 
 /* Expense */
 
 .transaction-expense {
-    border-left-color: #dc2626;
+  border-left-color: #dc2626;
 }
-
 
 /* =========================
    TRANSACTION TEXT
 ========================= */
 
 .transaction span {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 .transaction span:first-child {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .transaction span:nth-child(2) {
-    color: #666;
+  color: #666;
 }
 
 .transaction span:nth-child(3) {
-    font-weight: bold;
+  font-weight: bold;
 }
-
 
 /* =========================
    EDIT BUTTON
 ========================= */
 
 .transaction button {
-    border: none;
+  border: none;
 
-    background-color: #2563eb;
+  background-color: #2563eb;
 
-    color: white;
+  color: white;
 
-    padding: 7px 14px;
+  padding: 7px 14px;
 
-    border-radius: 5px;
+  border-radius: 5px;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .transaction button:hover {
-    background-color: #1d4ed8;
+  background-color: #1d4ed8;
 }
-
 
 /* =========================
    DELETE X
 ========================= */
 
 .transaction span:last-child {
-    color: #dc2626;
+  color: #dc2626;
 
-    font-weight: bold;
+  font-weight: bold;
 
-    font-size: 18px;
+  font-size: 18px;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .transaction span:last-child:hover {
-    color: #991b1b;
+  color: #991b1b;
 }
-
 
 /* =========================
    MOBILE
 ========================= */
 
 @media (max-width: 800px) {
+  .container {
+    width: 95%;
+    margin: 25px auto;
+  }
 
-    .container {
-        width: 95%;
-        margin: 25px auto;
-    }
+  .transaction {
+    grid-template-columns: 1fr 1fr;
 
-    .transaction {
-        grid-template-columns: 1fr 1fr;
-
-        gap: 12px;
-    }
-
+    gap: 12px;
+  }
 }
-
 
 /* =========================
    SMALL MOBILE
 ========================= */
 
 @media (max-width: 500px) {
+  .container > h1 {
+    font-size: 26px;
+  }
 
-    .container > h1 {
-        font-size: 26px;
-    }
+  .balance-section {
+    flex-direction: column;
 
-    .balance-section {
-        flex-direction: column;
+    gap: 15px;
 
-        gap: 15px;
+    text-align: center;
+  }
 
-        text-align: center;
-    }
+  .summary {
+    grid-template-columns: 1fr;
+  }
 
-    .summary {
-        grid-template-columns: 1fr;
-    }
+  .radio-btn {
+    flex-direction: column;
 
-    .radio-btn {
-        flex-direction: column;
+    align-items: flex-start;
+  }
 
-        align-items: flex-start;
-    }
+  .radio-btn select {
+    width: 100%;
+  }
 
-    .radio-btn select {
-        width: 100%;
-    }
+  .transaction {
+    grid-template-columns: 1fr;
 
-    .transaction {
-        grid-template-columns: 1fr;
+    padding: 18px;
+  }
 
-        padding: 18px;
-    }
-
-    .transaction button {
-        width: fit-content;
-    }
+  .transaction button {
+    width: fit-content;
+  }
 }

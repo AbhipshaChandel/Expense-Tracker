@@ -75,7 +75,7 @@ function Dashboard() {
               text: text,
               amount: amountnumber,
               type: type,
-              category:category
+              category: category,
             }),
           },
         );
@@ -96,7 +96,7 @@ function Dashboard() {
             text: text,
             amount: amountnumber,
             type: type,
-            category:category
+            category: category,
           }),
         });
 
@@ -109,7 +109,7 @@ function Dashboard() {
       settype("expense");
       seteditId(null);
       setshowform(false);
-      setcategory("")
+      setcategory("");
     } catch (error) {
       console.log("Error adding/Editing transaction", error);
     }
@@ -118,12 +118,12 @@ function Dashboard() {
   // New method of deleting transaction//
 
   const deleteTransaction = async (id) => {
-      const confirmDelete = window.confirm(
-        "Are you sure you want to delete this transaction?"
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this transaction?",
     );
 
     if (!confirmDelete) {
-        return;
+      return;
     }
 
     try {
@@ -145,7 +145,7 @@ function Dashboard() {
     settype(e.type);
 
     seteditId(e._id);
-    setcategory(e.category)
+    setcategory(e.category);
     setshowform(true);
   };
 
@@ -283,12 +283,13 @@ function Dashboard() {
                 })}
               </span>
               <button onClick={() => editTransaction(transaction)}>Edit</button>
-<button
-    onClick={() => deleteTransaction(transaction._id)}
-    className="delete-btn"
->
-    Delete
-</button>            </div>
+              <button
+                onClick={() => deleteTransaction(transaction._id)}
+                className="delete-btn"
+              >
+                Delete
+              </button>{" "}
+            </div>
           ))}
         </div>
       </div>
