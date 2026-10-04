@@ -1,17 +1,31 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./App.css";
+import { apiFetch } from "../src/utils/api";
+
 function Dashboard() {
   const [transactions, settransactions] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getTransaction = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:5000/api/transaction", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        // const token = localStorage.getItem("token");
+        // const response = await fetch("http://localhost:5000/api/transaction", {
+        //   headers: {
+        //     Authorization: `Bearer ${token}`,
+        //   },
+        // });
+
+        const response = await apiFetch(
+          "http://localhost:5000/api/transaction",
+          {},
+          navigate,
+        );
+
+        if (!response) {
+          return;
+        }
         const data = await response.json();
 
         if (!response.ok) {
@@ -63,13 +77,29 @@ function Dashboard() {
     try {
       const token = localStorage.getItem("token");
       if (editId !== null) {
-        const response = await fetch(
+        // const response = await fetch(
+        //   `http://localhost:5000/api/transaction/${editId}`,
+        //   {
+        //     method: "PUT",
+        //     headers: {
+        //       "Content-type": "application/json",
+        //       Authorization: `Bearer ${token}`,
+        //     },
+        //     body: JSON.stringify({
+        //       text: text,
+        //       amount: amountnumber,
+        //       type: type,
+        //       category: category,
+        //     }),
+        //   },
+        // );
+
+        const response = await apiFetch(
           `http://localhost:5000/api/transaction/${editId}`,
           {
             method: "PUT",
             headers: {
-              "Content-type": "application/json",
-              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({
               text: text,
@@ -78,7 +108,10 @@ function Dashboard() {
               category: category,
             }),
           },
+          navigate,
         );
+
+        if (!response) return;
 
         const updateTransaction = await response.json();
 
@@ -86,19 +119,42 @@ function Dashboard() {
           transactions.map((t) => (t._id == editId ? updateTransaction : t)),
         );
       } else {
-        const response = await fetch("http://localhost:5000/api/transaction", {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${token}`,
+        // const response = await fetch("http://localhost:5000/api/transaction", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-type": "application/json",
+        //     Authorization: `Bearer ${token}`,
+        //   },
+        //   body: JSON.stringify({
+        //     text: text,
+        //     amount: amountnumber,
+        //     type: type,
+        //     category: category,
+        //   }),
+        // });
+
+        const response = await apiFetch(
+          "http://localhost:5000/api/transaction",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type": "application/json",
+            },
+
+            body: JSON.stringify({
+              text: text,
+              amount: amountnumber,
+              type: type,
+              category: category,
+            }),
           },
-          body: JSON.stringify({
-            text: text,
-            amount: amountnumber,
-            type: type,
-            category: category,
-          }),
-        });
+          navigate,
+        );
+
+        if (!response) {
+          return;
+        }
 
         const newTransaction = await response.json();
 
@@ -127,11 +183,21 @@ function Dashboard() {
     }
 
     try {
-      const token = localStorage.getItem("token");
-      await fetch(`http://localhost:5000/api/transaction/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      // const token = localStorage.getItem("token");
+      // await fetch(`http://localhost:5000/api/transaction/${id}`, {
+      //   method: "DELETE",
+      //   headers: { Authorization: `Bearer ${token}` },
+      // });
+
+      const response = await apiFetch(
+        `http://localhost:5000/api/transaction/${id}`,
+        {
+          method: "DELETE",
+        },
+        navigate,
+      );
+
+      if (!response) return;
 
       settransactions(transactions.filter((t) => t._id !== id));
     } catch (error) {

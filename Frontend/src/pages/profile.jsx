@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
+import {apiFetch} from "../utils/api"
 
 function Profile() {
   const navigate = useNavigate();
@@ -21,14 +22,25 @@ function Profile() {
   useEffect(() => {
     const getProfile = async () => {
       try {
-        const token = localStorage.getItem("token");
+        // const token = localStorage.getItem("token");
 
-        const response = await fetch("http://localhost:5000/api/auth/profile", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        // const response = await fetch("http://localhost:5000/api/auth/profile", {
+        //   method: "GET",
+        //   headers: {
+        //     Authorization: `Bearer ${token}`,
+        //   },
+        // });
+
+
+        const response = await apiFetch(
+    "http://localhost:5000/api/auth/profile",
+    {},
+    navigate
+);
+
+if (!response) {
+    return;
+}
 
         const data = await response.json();
 
@@ -57,19 +69,43 @@ function Profile() {
 
   const updateProfile = async () => {
     try {
-      const token = localStorage.getItem("token");
+      // const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:5000/api/auth/profile", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          name,
-          email,
-        }),
-      });
+      // const response = await fetch("http://localhost:5000/api/auth/profile", {
+      //   method: "PUT",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      //   body: JSON.stringify({
+      //     name,
+      //     email,
+      //   }),
+      // });
+
+
+
+        const response = await apiFetch(
+            "http://localhost:5000/api/auth/profile",
+            {
+                method: "PUT",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    name: name,
+                    email: email
+                })
+            },
+            navigate
+        );
+
+        // JWT expired/invalid
+        if (!response) {
+            return;
+        }
 
       const data = await response.json();
 
@@ -95,24 +131,48 @@ function Profile() {
     }
 
     try {
-      const token = localStorage.getItem("token");
+      // const token = localStorage.getItem("token");
 
-      const response = await fetch(
-        "http://localhost:5000/api/auth/change-password",
-        {
-          method: "PUT",
+      // const response = await fetch(
+      //   "http://localhost:5000/api/auth/change-password",
+      //   {
+      //     method: "PUT",
 
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Authorization: `Bearer ${token}`,
+      //     },
 
-          body: JSON.stringify({
-            currentPassword,
-            newPassword,
-          }),
-        },
-      );
+      //     body: JSON.stringify({
+      //       currentPassword,
+      //       newPassword,
+      //     }),
+      //   },
+      // );
+
+
+
+        const response = await apiFetch(
+            "http://localhost:5000/api/auth/change-password",
+            {
+                method: "PUT",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    currentPassword: currentPassword,
+                    newPassword: newPassword
+                })
+            },
+            navigate
+        );
+
+        // JWT expired/invalid
+        if (!response) {
+            return;
+        }
 
       const data = await response.json();
 
