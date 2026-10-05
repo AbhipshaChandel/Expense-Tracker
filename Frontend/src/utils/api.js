@@ -1,6 +1,6 @@
 export const apiFetch = async (url, options = {}, navigate) => {
     const token = localStorage.getItem("token");
-
+try{
     const response = await fetch(url, {
         ...options,
         headers: {
@@ -16,4 +16,14 @@ export const apiFetch = async (url, options = {}, navigate) => {
     }
 
     return response;
+} catch (error) {
+
+        // Backend/server is down
+
+        console.log("Backend connection error:", error);
+
+        return{
+            backendDown:true
+        };
+}
 };

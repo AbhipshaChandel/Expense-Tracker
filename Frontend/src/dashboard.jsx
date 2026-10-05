@@ -4,42 +4,62 @@ import "./App.css";
 import { apiFetch } from "../src/utils/api";
 
 function Dashboard() {
+  const [serverError, setserverError] = useState(false);
+const [loading, setloading] = useState(true);
   const [transactions, settransactions] = useState([]);
   const navigate = useNavigate();
+const getTransaction = async () => {
 
-  useEffect(() => {
-    const getTransaction = async () => {
-      try {
-        // const token = localStorage.getItem("token");
-        // const response = await fetch("http://localhost:5000/api/transaction", {
-        //   headers: {
-        //     Authorization: `Bearer ${token}`,
-        //   },
-        // });
+    setloading(true);
+    setserverError(false);
+
+    try {
 
         const response = await apiFetch(
-          "http://localhost:5000/api/transaction",
-          {},
-          navigate,
+            "http://localhost:5000/api/transaction",
+            {},
+            navigate
         );
 
-        if (!response) {
-          return;
+        // Backend is down
+        if (response?.backendDown) {
+            setserverError(true);
+            setloading(false);
+            return;
         }
+
+        // JWT problem
+        if (!response) {
+            setloading(false);
+            return;
+        }
+
         const data = await response.json();
 
         if (!response.ok) {
-          alert(data.message);
-          return;
+            alert(data.message || "Failed to fetch transactions");
+            setloading(false);
+            return;
         }
 
         settransactions(data);
-      } catch (error) {
-        console.log("Error fetching Transaction", error);
-      }
-    };
+        setserverError(false);
+
+    } catch (error) {
+
+        console.log("Error fetching transactions:", error);
+
+        setserverError(true);
+
+    } finally {
+
+        setloading(false);
+    }
+};
+
+useEffect(() => {
     getTransaction();
-  }, []);
+}, []);
 
   const [text, settext] = useState("");
   const [amount, setamount] = useState("");
@@ -113,6 +133,11 @@ function Dashboard() {
 
         if (!response) return;
 
+        if (!response.ok) {
+    alert(data.message || "Failed to update transaction");
+    return;
+}
+
         const updateTransaction = await response.json();
 
         settransactions(
@@ -155,6 +180,11 @@ function Dashboard() {
         if (!response) {
           return;
         }
+
+        if (!response.ok) {
+    alert(data.message || "Failed to add transaction");
+    return;
+}
 
         const newTransaction = await response.json();
 
@@ -199,6 +229,11 @@ function Dashboard() {
 
       if (!response) return;
 
+      if (!response.ok) {
+    alert(data.message || "Failed to delete transaction");
+    return;
+}
+
       settransactions(transactions.filter((t) => t._id !== id));
     } catch (error) {
       console.log("Error deleting transaction", error);
@@ -218,6 +253,40 @@ function Dashboard() {
   const filteredtransactions = transactions.filter((t) =>
     t.text.toLowerCase().includes(search.toLowerCase()),
   );
+
+  if (loading) {
+    return (
+        <div className="status-container">
+            <h2>Loading...</h2>
+        </div>
+    );
+}
+
+if (serverError) {
+    return (
+        <div className="server-error-container">
+
+            <div className="server-error-box">
+
+                <h2>⚠️ Unable to connect to server</h2>
+
+                <p>
+                    We couldn't connect to the backend server.
+                </p>
+
+                <p>
+                    Please make sure the server is running and try again.
+                </p>
+
+                <button onClick={getTransaction}>
+                    Retry
+                </button>
+
+            </div>
+
+        </div>
+    );
+}
 
   return (
     <>
