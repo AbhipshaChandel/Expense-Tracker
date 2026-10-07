@@ -298,7 +298,7 @@ if (serverError) {
         {/* Balance Section */}
         <div className="balance-section">
           <h2>
-            Balance: <span>${balance}</span>
+            Balance: <span>₹{balance}</span>
           </h2>
 
           <button
@@ -380,12 +380,12 @@ if (serverError) {
         <div className="summary">
           <div className="summary-box">
             <p>Expense</p>
-            <h2 className="expense">${expense}</h2>
+            <h2 className="expense">₹{expense}</h2>
           </div>
 
           <div className="summary-box">
             <p>Income</p>
-            <h2 className="income">${income}</h2>
+            <h2 className="income">₹{income}</h2>
           </div>
         </div>
 

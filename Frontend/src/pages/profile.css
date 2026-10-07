@@ -1,109 +1,494 @@
-.profile-page {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 20px;
+/* =========================
+   GENERAL
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.profile-page h1 {
-  text-align: center;
-  margin-bottom: 30px;
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #222;
 }
+
+
+/* =========================
+   PROFILE PAGE
+========================= */
+
+.profile-page {
+    width: 90%;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 10px;
+}
+
+.profile-page > h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+
+/* =========================
+   PROFILE CARD
+========================= */
 
 .profile-card {
-  background: white;
-  padding: 30px;
-  text-align: center;
-  border-radius: 12px;
-  margin-bottom: 20px;
+    background: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 12px;
+    margin-bottom: 20px;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
 
+
+/* =========================
+   PROFILE AVATAR
+========================= */
+
 .profile-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32px;
-  font-weight: bold;
-  background: #ddd;
+    width: 85px;
+    height: 85px;
+
+    border-radius: 50%;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #2563eb;
+    color: white;
+
+    font-size: 34px;
+    font-weight: bold;
 }
 
 .profile-card h2 {
-  margin-top: 15px;
+    margin-bottom: 8px;
 }
 
-.profile-card p {
-  color: #666;
+.profile-card > p {
+    color: #666;
+    margin-bottom: 20px;
 }
+
+
+/* =========================
+   PROFILE INPUTS
+========================= */
+
+.profile-card input {
+    display: block;
+
+    width: 100%;
+    max-width: 400px;
+
+    margin: 10px auto;
+
+    padding: 12px 14px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.profile-card input:focus {
+    border-color: #2563eb;
+}
+
+
+/* =========================
+   PROFILE BUTTONS
+========================= */
+
+.profile-card button {
+    border: none;
+
+    padding: 10px 18px;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    margin: 5px;
+}
+
+
+/* Edit Profile / Save / Change Password */
+
+.profile-card button:not(.password-buttons button) {
+    background: #2563eb;
+    color: white;
+}
+
+.profile-card button:not(.password-buttons button):hover {
+    background: #1d4ed8;
+}
+
+
+/* =========================
+   PASSWORD SECTION
+========================= */
+
+.profile-card > h2 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+
+/* Password form */
+
+.password-form {
+    width: 100%;
+    max-width: 450px;
+
+    margin: 0 auto;
+
+    padding: 20px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+}
+
+.password-form input {
+    margin: 10px auto;
+}
+
+
+/* Password buttons */
+
+.password-buttons {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 10px;
+}
+
+.password-buttons button:first-child {
+    background: #16a34a;
+    color: white;
+}
+
+.password-buttons button:first-child:hover {
+    background: #15803d;
+}
+
+.password-buttons button:last-child {
+    background: #6b7280;
+    color: white;
+}
+
+.password-buttons button:last-child:hover {
+    background: #4b5563;
+}
+
+
+/* =========================
+   PROFILE SECTIONS
+========================= */
 
 .profile-section {
-  background: white;
-  padding: 25px;
-  border-radius: 12px;
-  margin-bottom: 20px;
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    margin-bottom: 20px;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
 
 .profile-section h2 {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
+
+    font-size: 22px;
 }
 
+
+/* Account information */
+
+.profile-section > p {
+    margin-bottom: 12px;
+
+    color: #555;
+}
+
+.profile-section strong {
+    color: #222;
+}
+
+
+/* =========================
+   STATISTICS
+========================= */
+
 .stats-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 15px;
 }
 
 .stat-box {
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  text-align: center;
+    padding: 20px;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    background: #fafafa;
 }
 
 .stat-box h3 {
-  font-size: 15px;
+    font-size: 14px;
+
+    color: #666;
+
+    margin-bottom: 10px;
 }
 
 .stat-box p {
-  font-size: 22px;
-  font-weight: bold;
+    font-size: 22px;
+
+    font-weight: bold;
+
+    color:rgb(25, 25, 25);
 }
 
+
+/* =========================
+   TOP CATEGORY
+========================= */
+
 .category-box {
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
+    padding: 20px;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    background: #fafafa;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
 }
 
 .category-box h3 {
-  margin: 0;
+    font-size: 18px;
 }
 
 .category-box p {
-  font-size: 24px;
-  font-weight: bold;
+    font-size: 22px;
+
+    font-weight: bold;
+
+    color: #dc2626;
 }
 
+
+/* =========================
+   RECENT TRANSACTIONS
+========================= */
+
 .recent-transaction {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 0;
-  border-bottom: 1px solid #ddd;
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 15px 5px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.recent-transaction:last-child {
+    border-bottom: none;
+}
+
+.recent-transaction strong {
+    font-size: 16px;
 }
 
 .recent-transaction p {
-  margin: 5px 0 0;
-  color: #777;
+    margin-top: 5px;
+
+    color: #777;
+
+    font-size: 14px;
 }
 
-.logout-button {
-  display: block;
-  margin: 30px auto;
-  padding: 12px 30px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+.recent-transaction > div:last-child {
+    text-align: right;
+}
+
+.recent-transaction > div:last-child span {
+    font-weight: bold;
+
+    font-size: 16px;
+}
+
+
+/* =========================
+   MOBILE / IPHONE
+========================= */
+
+@media (max-width: 700px) {
+
+    .profile-page {
+        width: 95%;
+
+        margin: 25px auto;
+    }
+
+    .profile-page > h1 {
+        font-size: 27px;
+
+        margin-bottom: 20px;
+    }
+
+    .profile-card {
+        padding: 25px 18px;
+    }
+
+    .profile-section {
+        padding: 20px 15px;
+    }
+
+    /* Statistics become 2 columns */
+
+    .stats-container {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 10px;
+    }
+
+    .stat-box {
+        padding: 15px 8px;
+    }
+
+    .stat-box h3 {
+        font-size: 13px;
+    }
+
+    .stat-box p {
+        font-size: 19px;
+    }
+
+    /* Category */
+
+    .category-box {
+        padding: 15px;
+
+        flex-direction: column;
+
+        gap: 8px;
+
+        text-align: center;
+    }
+
+    /* Recent transactions */
+
+    .recent-transaction {
+        padding: 15px 0;
+    }
+}
+
+
+/* =========================
+   SMALL IPHONE
+========================= */
+
+@media (max-width: 450px) {
+
+    .profile-page > h1 {
+        font-size: 25px;
+    }
+
+    .profile-avatar {
+        width: 75px;
+        height: 75px;
+
+        font-size: 30px;
+    }
+
+    .profile-card h2 {
+        font-size: 20px;
+    }
+
+    /* Statistics become one column */
+
+    .stats-container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .stat-box {
+        min-height: 90px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        align-items: center;
+    }
+
+    /* Password buttons */
+
+    .password-buttons {
+        flex-direction: column;
+
+        gap: 5px;
+    }
+
+    .password-buttons button {
+        width: 100%;
+    }
+
+    /* Recent transactions */
+
+    .recent-transaction {
+        flex-direction: column;
+
+        align-items: center;
+
+        text-align: center;
+
+        gap: 10px;
+    }
+
+    .recent-transaction > div:last-child {
+        text-align: center;
+    }
+
+    .profile-card input {
+        width: 100%;
+    }
 }

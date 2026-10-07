@@ -28,7 +28,6 @@ body {
 .container > h1 {
     text-align: center;
     margin-bottom: 30px;
-    font-size: 32px;
 }
 
 
@@ -505,9 +504,7 @@ body {
 
     .balance-section {
         flex-direction: column;
-
         gap: 15px;
-
         text-align: center;
     }
 
@@ -517,7 +514,6 @@ body {
 
     .radio-btn {
         flex-direction: column;
-
         align-items: flex-start;
     }
 
@@ -525,14 +521,30 @@ body {
         width: 100%;
     }
 
-    .transaction {
-        grid-template-columns: 1fr;
-
+    /* Transaction card on mobile */
+   .transaction {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         padding: 18px;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .transaction span {
+        grid-column: 1 / -1;
+        text-align: center;
     }
 
     .transaction button {
-        width: fit-content;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    /* Center Delete button */
+    .transaction .delete-btn {
+        width: 100%;
+        max-width: 150px;
+        margin: 0 auto;
     }
 
     .server-error-box {
