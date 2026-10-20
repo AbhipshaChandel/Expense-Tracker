@@ -4,7 +4,7 @@ A full-stack personal finance application built with React, Node.js, Express, an
 
 ## 🌐 Live Demo
 
-**[🚀 Try Expense Tracker](https://expense-tracker-frontend-liard-mu.vercel.app/register)**
+**[🚀 Try Expense Tracker](https://expense-tracker-frontend-liard-mu.vercel.app/)**
 
 ## 📖 About the Project
 
