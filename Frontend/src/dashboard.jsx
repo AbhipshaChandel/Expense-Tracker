@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./App.css";
-import { apiFetch } from "../src/utils/api";
+import { apiFetch,API_BASE_URL } from "../src/utils/api";
 
 function Dashboard() {
   const [serverError, setserverError] = useState(false);
@@ -16,7 +16,7 @@ const getTransaction = async () => {
     try {
 
         const response = await apiFetch(
-            "http://localhost:5000/api/transaction",
+            `${API_BASE_URL}/api/transaction`,
             {},
             navigate
         );
@@ -115,7 +115,7 @@ useEffect(() => {
         // );
 
         const response = await apiFetch(
-          `http://localhost:5000/api/transaction/${editId}`,
+          `${API_BASE_URL}/api/transaction/${editId}`,
           {
             method: "PUT",
             headers: {
@@ -160,7 +160,7 @@ useEffect(() => {
         // });
 
         const response = await apiFetch(
-          "http://localhost:5000/api/transaction",
+          `${API_BASE_URL}/api/transaction`,
           {
             method: "POST",
 
@@ -221,7 +221,7 @@ useEffect(() => {
       // });
 
       const response = await apiFetch(
-        `http://localhost:5000/api/transaction/${id}`,
+        `${API_BASE_URL}/api/transaction/${id}`,
         {
           method: "DELETE",
         },

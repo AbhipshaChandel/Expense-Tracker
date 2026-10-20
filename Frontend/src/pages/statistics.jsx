@@ -22,7 +22,7 @@ function Statistics() {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await fetch("http://localhost:5000/api/transaction", {
+        const response = await fetch(`${API_BASE_URL}/api/transaction`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

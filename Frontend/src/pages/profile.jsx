@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./profile.css";
-import {apiFetch} from "../utils/api"
+import {apiFetch,API_BASE_URL} from "../utils/api"
 
 function Profile() {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ function Profile() {
 
 
         const response = await apiFetch(
-    "http://localhost:5000/api/auth/profile",
+    `${API_BASE_URL}/api/auth/profile`,
     {},
     navigate
 );
@@ -86,7 +86,7 @@ if (!response) {
 
 
         const response = await apiFetch(
-            "http://localhost:5000/api/auth/profile",
+            `${API_BASE_URL}/api/auth/profile`,
             {
                 method: "PUT",
 
@@ -153,7 +153,7 @@ if (!response) {
 
 
         const response = await apiFetch(
-            "http://localhost:5000/api/auth/change-password",
+            `${API_BASE_URL}/api/auth/change-password`,
             {
                 method: "PUT",
 

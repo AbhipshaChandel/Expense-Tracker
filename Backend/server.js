@@ -12,7 +12,6 @@ const protect=require("./middleware/authMiddleware")
 require("dotenv").config();
 const Transaction=require("./models/transaction");
 const { error } = require("console");
-const transaction = require("./models/transaction");
 
 const app = express();
 
