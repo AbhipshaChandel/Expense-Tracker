@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./register.css";
-import { apiFetch, API_BASE_URL } from "../utils/api";
+import {  API_BASE_URL } from "../utils/api";
 
 function Register() {
   const navigate = useNavigate();
