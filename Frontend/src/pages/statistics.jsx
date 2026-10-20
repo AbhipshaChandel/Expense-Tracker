@@ -13,6 +13,7 @@ import {
 import { PieChart, Pie, Cell } from "recharts";
 import { useEffect, useState } from "react";
 import "./statistics.css";
+import { apiFetch, API_BASE_URL } from "../utils/api";
 
 function Statistics() {
   const [transactions, settransactions] = useState([]);
