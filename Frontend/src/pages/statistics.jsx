@@ -12,7 +12,7 @@ import {
 
 import { PieChart, Pie, Cell } from "recharts";
 import { useEffect, useState } from "react";
-import "./Statistics.css";
+import "./statistics.css";
 
 function Statistics() {
   const [transactions, settransactions] = useState([]);
