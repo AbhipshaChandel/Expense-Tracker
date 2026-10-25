@@ -8,6 +8,7 @@ const bcrypt=require("bcryptjs")
 const jwt=require("jsonwebtoken")
 const User=require("./models/user")
 const protect=require("./middleware/authMiddleware")
+const budgetRoutes=require("./routes/budgetRoutes")
 
 require("dotenv").config();
 const Transaction=require("./models/transaction");
@@ -16,6 +17,7 @@ const { error } = require("console");
 const app = express();
 
 app.use(express.json());
+app.use("/api/budgets",budgetRoutes)
 app.use(cors())
 
 const PORT = process.env.PORT || 5000;
