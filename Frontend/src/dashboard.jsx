@@ -97,22 +97,6 @@ useEffect(() => {
     try {
       const token = localStorage.getItem("token");
       if (editId !== null) {
-        // const response = await fetch(
-        //   `http://localhost:5000/api/transaction/${editId}`,
-        //   {
-        //     method: "PUT",
-        //     headers: {
-        //       "Content-type": "application/json",
-        //       Authorization: `Bearer ${token}`,
-        //     },
-        //     body: JSON.stringify({
-        //       text: text,
-        //       amount: amountnumber,
-        //       type: type,
-        //       category: category,
-        //     }),
-        //   },
-        // );
 
         const response = await apiFetch(
           `${API_BASE_URL}/api/transaction/${editId}`,
@@ -132,32 +116,18 @@ useEffect(() => {
         );
 
         if (!response) return;
-        const data=await response.json()
 
+        const updateTransaction = await response.json();
         if (!response.ok) {
-    alert(data.message || "Failed to update transaction");
+    alert(updateTransaction.message || "Failed to update transaction");
     return;
 }
 
-        const updateTransaction = await response.json();
 
         settransactions(
           transactions.map((t) => (t._id == editId ? updateTransaction : t)),
         );
       } else {
-        // const response = await fetch("http://localhost:5000/api/transaction", {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-type": "application/json",
-        //     Authorization: `Bearer ${token}`,
-        //   },
-        //   body: JSON.stringify({
-        //     text: text,
-        //     amount: amountnumber,
-        //     type: type,
-        //     category: category,
-        //   }),
-        // });
 
         const response = await apiFetch(
           `${API_BASE_URL}/api/transaction`,
@@ -182,12 +152,12 @@ useEffect(() => {
           return;
         }
 
+        const newTransaction = await response.json();
         if (!response.ok) {
-    alert(data.message || "Failed to add transaction");
+    alert(newTransaction.message || "Failed to add transaction");
     return;
 }
 
-        const newTransaction = await response.json();
 
         settransactions([...transactions, newTransaction]);
       }
@@ -214,12 +184,6 @@ useEffect(() => {
     }
 
     try {
-      // const token = localStorage.getItem("token");
-      // await fetch(`http://localhost:5000/api/transaction/${id}`, {
-      //   method: "DELETE",
-      //   headers: { Authorization: `Bearer ${token}` },
-      // });
-
       const response = await apiFetch(
         `${API_BASE_URL}/api/transaction/${id}`,
         {
@@ -229,6 +193,7 @@ useEffect(() => {
       );
 
       if (!response) return;
+      const data=await response.json();
 
       if (!response.ok) {
     alert(data.message || "Failed to delete transaction");

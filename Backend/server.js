@@ -220,7 +220,7 @@ mongoose
                 email
             },
             {
-                new: true,
+                 returnDocument: 'after',
                 runValidators: true
             }
         ).select("-password");
@@ -382,7 +382,7 @@ app.put("/api/transaction/:id",protect,async(req,res)=>{
         category:req.body.category
       },
       {
-        new:true,
+         returnDocument: 'after',
         runValidators:true
       }
     )
