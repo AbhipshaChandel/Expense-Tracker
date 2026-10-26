@@ -50,9 +50,9 @@ router.get("/", protect, async (req, res) => {
       Transaction.aggregate([
         {
           $match: {
-            userId: new mongoose.Types.ObjectId(userId),
+            user: new mongoose.Types.ObjectId(userId),
             type: "expense",
-            date: {
+            createdAt: {
               $gte: startDate,
               $lt: endDate,
             },
