@@ -1,5 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors=require("cors")
+
 
 const Budget = require("../models/budget");
 const Transaction = require("../models/transaction");
@@ -9,6 +11,8 @@ const Transaction = require("../models/transaction");
 const protect = require("../middleware/authMiddleware");
 
 const router = express.Router();
+router.use(cors());
+
 
 // GET monthly budgets and actual spending.
 router.get("/", protect, async (req, res) => {
@@ -29,9 +33,6 @@ router.get("/", protect, async (req, res) => {
       });
     }
 
-    // Adjust this if your authentication middleware uses
-    // req.user._id or another property.
-    // const userId = req.userID;
 
     if (!mongoose.isValidObjectId(req.userID)) {
       return res.status(401).json({
@@ -169,7 +170,7 @@ router.post("/", protect, async (req, res) => {
         },
       },
       {
-        new: true,
+       returnDocument:'after',
         upsert: true,
         runValidators: true,
       }

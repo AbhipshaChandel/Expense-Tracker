@@ -17,6 +17,7 @@ function NavBar(){
             <div className="nav-links">
                 <Link to="/dashboard" >Dashboard</Link>
                 <Link to="/statistics" >Statistics</Link>
+                <Link to="/budget">Budget</Link>
                 <Link to="/profile" >Profile</Link>
                  <button onClick={Logout}>Logout</button>
             </div>

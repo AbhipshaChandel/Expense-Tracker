@@ -83,7 +83,7 @@ mongoose
         return res.status(401).json({message:"Invalid email or password"})
       }
 
-      const checkpassword=await bcrypt.compare(
+      const checkpassword= bcrypt.compare(
         password,
         user.password
       )

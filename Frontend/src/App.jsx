@@ -6,6 +6,7 @@ import Statistics from "./pages/statistics";
 import ProtectedRouter from "./protectedRoutes";
 import Profile from "./pages/profile";
 import NavBar from "./components/Navbar"
+import Budget from "./pages/budget";
 function App() {
   
 
@@ -18,6 +19,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<ProtectedRouter><><NavBar/></><Dashboard /></ProtectedRouter>} />
           <Route path="/statistics" element={<ProtectedRouter><><NavBar/></><Statistics/></ProtectedRouter>}/>
+          <Route path="/budget" element={<ProtectedRouter><><NavBar/></><Budget/></ProtectedRouter>}></Route>
           <Route path="/profile" element={<ProtectedRouter><><NavBar/></><Profile/></ProtectedRouter>}/>
 
         </Routes>
