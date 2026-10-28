@@ -29,7 +29,7 @@ export function exportTransactionsToCSV(transactions) {
 
   const rows = transactions.map((transaction) => [
     transaction.createdAt
-      ? new Date(transaction.createdAt).toLocaleDateString("en-IN")
+      ? new Date(transaction.createdAt).toISOString().slice(0, 10)
       : "",
     transaction.text,
     transaction.category,
