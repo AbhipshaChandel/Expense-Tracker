@@ -18,6 +18,7 @@ import {
 
 import "./statistics.css";
 import { API_BASE_URL } from "../utils/api";
+import { exportTransactionsToCSV } from "../csv/exportCSV";
 
 const COLORS = [
   "#6366f1",
@@ -423,6 +424,14 @@ function Statistics() {
     <div className="statistics-page">
       <div className="statistics-header">
         <h1>Statistics</h1>
+        <div>
+         <button
+    className="export-csv-btn"
+    onClick={() => exportTransactionsToCSV(filteredTransactions)}
+    disabled={!transactions || transactions.length === 0}
+  >
+    Export CSV
+  </button>
 
         <button
           type="button"
@@ -430,6 +439,8 @@ function Statistics() {
         >
           Refresh
         </button>
+
+        </div>
       </div>
 
       {/* FILTERS */}

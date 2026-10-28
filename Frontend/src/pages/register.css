@@ -1,5 +1,9 @@
 /* Register Page */
 
+.chart-box{
+  padding-top: 25px;
+}
+
 .Registration {
   width: 100%;
   max-width: 420px;

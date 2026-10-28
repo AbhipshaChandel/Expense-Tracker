@@ -1,5 +1,45 @@
 /* Header */
 
+.export-csv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 18px;
+  background: #16a34a;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.export-csv-btn:hover:not(:disabled) {
+  background: #15803d;
+  transform: translateY(-2px);
+}
+
+.export-csv-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (max-width: 600px) {
+  .statistics-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .export-csv-btn {
+    width: 100%;
+  }
+}
+
 .statistics-header {
   display: flex;
   justify-content: space-between;
@@ -11,7 +51,8 @@
 
 .statistics-header button,
 .statistics-page > button {
-  padding: 10px 16px;
+  padding: 12px 11px;
+  margin-right: 3px;
   border: none;
   border-radius: 6px;
   background: #4f46e5;
